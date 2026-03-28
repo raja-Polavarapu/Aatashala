@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aatashala – Discover the Nostalgic Joy</title>
+  <meta name="description" content="Aatashala – A cultural movement reviving traditional games, homemade food, celebrations and community. Hyderabad's happiest weekend destination."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800;900&family=Hind:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --red:#C8321A;--red2:#9E2210;--redlt:#FDECEA;
+      --teal:#1A8C6E;--teal2:#0F6050;--teallt:#E4F5EF;
+      --orange:#E8821A;--orangelt:#FEF3E2;
+      --gold:#D4991A;--goldlt:#FDF6DC;
+      --cream:#FFFBF2;--cream2:#FFF5E0;--cream3:#FFF0D0;
+      --dk:#2D1A0E;--brown:#5C3317;--mid:#6B4226;--soft:#9B7055;
+      --border:rgba(200,50,26,0.12);
+      --fh:'Baloo 2',cursive;--fb:'Hind',sans-serif;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:var(--fb);background:var(--cream);color:var(--dk);overflow-x:hidden}
+
+    /* KOLAM DOT PATTERN */
+    body::before{
+      content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+      background-image:radial-gradient(circle,rgba(200,50,26,0.055) 1px,transparent 1px),
+        radial-gradient(circle,rgba(26,140,110,0.04) 1px,transparent 1px);
+      background-size:30px 30px,62px 62px;background-position:0 0,15px 15px;
+    }
+
+    /* RAINBOW STRIPE */
+    .stripe{height:5px;background:repeating-linear-gradient(90deg,var(--red) 0,var(--red) 25%,var(--orange) 25%,var(--orange) 50%,var(--gold) 50%,var(--gold) 75%,var(--teal) 75%,var(--teal) 100%);position:relative;z-index:10}
+
+    /* ── NAV ── */
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:200;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:8px 5%;
+      background:rgba(255,251,242,0.97);backdrop-filter:blur(16px);
+      border-bottom:2px solid rgba(200,50,26,0.1);
+      box-shadow:0 2px 24px rgba(45,26,14,0.07);
+    }
+    /* 3D LOGO */
+    .logo-wrap{
+      perspective:600px;cursor:pointer;
+    }
+    .logo-wrap img{
+      height:52px;object-fit:contain;
+      transform:rotateY(-6deg) rotateX(3deg);
+      filter:drop-shadow(2px 3px 0px rgba(158,34,16,0.5)) drop-shadow(4px 6px 0px rgba(158,34,16,0.25)) drop-shadow(0 8px 16px rgba(45,26,14,0.2));
+      transition:all 0.3s ease;
+      transform-style:preserve-3d;
+    }
+    .logo-wrap:hover img{
+      transform:rotateY(0deg) rotateX(0deg) scale(1.05);
+      filter:drop-shadow(3px 4px 0px rgba(158,34,16,0.6)) drop-shadow(6px 8px 0px rgba(158,34,16,0.3)) drop-shadow(0 12px 24px rgba(45,26,14,0.25));
+    }
+    .nav-links{display:flex;gap:6px;list-style:none;align-items:center}
+    .nav-links a{
+      font-family:var(--fb);font-weight:600;font-size:14px;
+      color:var(--dk);text-decoration:none;padding:8px 12px;border-radius:8px;
+      transition:all 0.2s;
+    }
+    .nav-links a:hover{color:var(--red);background:var(--redlt)}
+    .nav-links a.active{color:var(--red)}
+    .nav-cta{background:var(--red)!important;color:#fff!important;border-radius:50px!important;padding:10px 20px!important;box-shadow:0 4px 14px rgba(200,50,26,0.3)!important;font-weight:700!important}
+    .nav-cta:hover{background:var(--red2)!important;transform:translateY(-1px)}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+    .hamburger span{width:24px;height:2.5px;background:var(--dk);border-radius:2px;display:block;transition:all 0.3s}
+
+    /* ── HERO ── */
+    .hero{
+      min-height:100vh;display:grid;grid-template-columns:1.1fr 0.9fr;
+      align-items:center;padding:100px 5% 60px;gap:48px;
+      position:relative;z-index:1;
+    }
+    .hero-badge{
+      display:inline-flex;align-items:center;gap:8px;
+      background:var(--goldlt);border:1.5px solid rgba(212,153,26,0.35);
+      color:var(--brown);font-weight:700;font-size:13px;
+      padding:6px 16px;border-radius:50px;margin-bottom:20px;
+    }
+    .hero h1{
+      font-family:var(--fh);font-size:clamp(2.4rem,4.5vw,4.2rem);
+      font-weight:900;line-height:1.1;color:var(--dk);margin-bottom:18px;
+    }
+    .hero h1 .r{color:var(--red)}.hero h1 .t{color:var(--teal)}.hero h1 .o{color:var(--orange)}
+    .hero-sub{font-size:17px;line-height:1.8;color:var(--mid);max-width:500px;margin-bottom:32px}
+    .hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:36px}
+    .btn-p{
+      display:inline-flex;align-items:center;gap:8px;
+      background:var(--red);color:#fff;
+      font-family:var(--fb);font-weight:700;font-size:16px;
+      padding:13px 28px;border-radius:50px;text-decoration:none;border:none;cursor:pointer;
+      box-shadow:0 6px 20px rgba(200,50,26,0.35),0 2px 0 var(--red2);
+      transition:all 0.25s;
+    }
+    .btn-p:hover{background:var(--red2);transform:translateY(-2px);box-shadow:0 10px 28px rgba(200,50,26,0.4),0 2px 0 #7a1a0a}
+    .btn-s{
+      display:inline-flex;align-items:center;gap:8px;
+      background:transparent;color:var(--dk);
+      font-family:var(--fb);font-weight:700;font-size:16px;
+      padding:13px 26px;border-radius:50px;border:2px solid rgba(45,26,14,0.2);
+      text-decoration:none;transition:all 0.25s;cursor:pointer;
+    }
+    .btn-s:hover{border-color:var(--teal);color:var(--teal);transform:translateY(-2px)}
+    .btn-t{
+      display:inline-flex;align-items:center;gap:8px;
+      background:var(--teal);color:#fff;
+      font-family:var(--fb);font-weight:700;font-size:16px;
+      padding:13px 28px;border-radius:50px;text-decoration:none;border:none;cursor:pointer;
+      box-shadow:0 6px 20px rgba(26,140,110,0.35),0 2px 0 var(--teal2);
+      transition:all 0.25s;
+    }
+    .btn-t:hover{background:var(--teal2);transform:translateY(-2px)}
+    .btn-o{
+      display:inline-flex;align-items:center;gap:8px;
+      background:var(--orange);color:#fff;
+      font-family:var(--fb);font-weight:700;font-size:16px;
+      padding:13px 28px;border-radius:50px;text-decoration:none;border:none;cursor:pointer;
+      box-shadow:0 6px 20px rgba(232,130,26,0.35);transition:all 0.25s;
+    }
+    .btn-o:hover{background:#c06010;transform:translateY(-2px)}
+
+    /* HERO SLIDESHOW */
+    .hero-slideshow{
+      position:relative;border-radius:28px;overflow:hidden;
+      aspect-ratio:4/5;max-width:480px;margin-left:auto;
+      box-shadow:0 24px 60px rgba(45,26,14,0.22),0 0 0 5px rgba(200,50,26,0.1);
+      border:3px solid rgba(200,50,26,0.15);
+    }
+    .slide{
+      position:absolute;inset:0;
+      background-size:cover;background-position:center;
+      opacity:0;transition:opacity 1.2s ease;
+      animation:kenburns 8s ease-in-out infinite alternate;
+    }
+    .slide.active{opacity:1}
+    @keyframes kenburns{0%{transform:scale(1) translate(0,0)}100%{transform:scale(1.08) translate(-1%,-1%)}}
+    .slide:nth-child(2){animation-delay:0.5s}
+    .slide:nth-child(3){animation-delay:1s}
+    .slide:nth-child(4){animation-delay:1.5s}
+    .slide-overlay{
+      position:absolute;inset:0;
+      background:linear-gradient(to top,rgba(45,26,14,0.5) 0%,transparent 50%);
+    }
+    .slide-dots{
+      position:absolute;bottom:16px;left:50%;transform:translateX(-50%);
+      display:flex;gap:8px;z-index:5;
+    }
+    .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.5);cursor:pointer;transition:all 0.3s}
+    .dot.active{background:#fff;width:20px;border-radius:4px}
+    .hero-float{
+      position:absolute;background:#fff;border-radius:16px;
+      padding:12px 16px;box-shadow:0 8px 32px rgba(45,26,14,0.14);
+      font-weight:700;font-size:13px;color:var(--dk);
+      border:1px solid var(--border);z-index:5;
+    }
+    .hf1{bottom:40px;left:-20px}
+    .hf1 span{display:block;font-size:22px;color:var(--red);font-family:var(--fh);font-weight:900}
+    .hf2{top:36px;right:-18px}
+    .hf2 span{display:block;font-size:18px}
+    @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+    .hero-slideshow-wrap{animation:floatY 5s ease-in-out infinite;position:relative}
+
+    /* ── STATS ── */
+    .stats{
+      background:var(--dk);padding:30px 5%;
+      display:flex;justify-content:center;gap:50px;flex-wrap:wrap;
+      position:relative;z-index:1;
+    }
+    .stat .n{font-family:var(--fh);font-size:2.3rem;font-weight:900;color:var(--gold);display:block;line-height:1}
+    .stat .l{color:rgba(255,255,255,0.6);font-size:13px;font-weight:500;margin-top:4px;display:block}
+    .stat{text-align:center}
+
+    /* ── SECTIONS ── */
+    section{padding:80px 5%;position:relative;z-index:1}
+    .sec-tag{
+      display:inline-block;background:var(--goldlt);
+      border:1px solid rgba(212,153,26,0.3);color:var(--brown);
+      font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;
+      padding:5px 14px;border-radius:50px;margin-bottom:14px;
+    }
+    .sec-title{font-family:var(--fh);font-size:clamp(1.9rem,3vw,3rem);font-weight:900;color:var(--dk);line-height:1.18;margin-bottom:14px}
+    .sec-sub{font-size:17px;color:var(--mid);line-height:1.78;max-width:580px}
+    .card{
+      background:#fff;border-radius:20px;
+      border:1.5px solid var(--border);
+      box-shadow:0 4px 20px rgba(45,26,14,0.05);
+      transition:all 0.25s;
+    }
+    .card:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(45,26,14,0.1);border-color:rgba(200,50,26,0.22)}
+    .wrap{
+      background:var(--cream2);border-radius:32px;
+      border:1.5px solid rgba(200,50,26,0.1);
+      padding:60px 6%;box-shadow:0 8px 40px rgba(45,26,14,0.05);
+    }
+    .dark-wrap{
+      background:var(--dk);border-radius:32px;padding:60px 6%;
+      position:relative;overflow:hidden;
+    }
+    .dark-wrap::before{
+      content:'';position:absolute;inset:0;
+      background-image:radial-gradient(circle,rgba(212,153,26,0.07) 1px,transparent 1px);
+      background-size:26px 26px;
+    }
+
+    /* ── ABOUT ── */
+    .about-vision{
+      background:linear-gradient(135deg,var(--redlt) 0%,var(--orangelt) 100%);
+      border-radius:20px;padding:36px;border:1.5px solid rgba(200,50,26,0.15);
+      margin-bottom:48px;
+    }
+    .about-vision p{font-size:17px;line-height:1.85;color:var(--dk);font-style:italic;font-weight:500}
+    .founders-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+    .founder-card{
+      background:#fff;border-radius:22px;padding:28px;text-align:center;
+      border:1.5px solid var(--border);
+      box-shadow:0 4px 20px rgba(45,26,14,0.05);
+      transition:all 0.25s;
+    }
+    .founder-card:hover{transform:translateY(-5px);box-shadow:0 14px 40px rgba(45,26,14,0.1)}
+    .founder-img{
+      width:110px;height:110px;border-radius:50%;object-fit:cover;object-position:top;
+      margin:0 auto 16px;display:block;
+      border:4px solid transparent;
+      background:linear-gradient(#fff,#fff) padding-box,
+        linear-gradient(135deg,var(--red),var(--orange),var(--teal)) border-box;
+      box-shadow:0 6px 24px rgba(45,26,14,0.15);
+    }
+    .founder-placeholder{
+      width:110px;height:110px;border-radius:50%;
+      margin:0 auto 16px;display:flex;align-items:center;justify-content:center;
+      font-size:40px;
+      background:var(--cream3);
+      border:4px solid transparent;
+      background:linear-gradient(var(--cream3),var(--cream3)) padding-box,
+        linear-gradient(135deg,var(--teal),var(--gold)) border-box;
+    }
+    .founder-name{font-family:var(--fh);font-weight:800;font-size:20px;color:var(--dk);margin-bottom:4px}
+    .founder-role{
+      font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+      color:var(--red);margin-bottom:14px;
+    }
+    .founder-note{font-size:14px;line-height:1.7;color:var(--mid);font-style:italic}
+
+    /* ── GAMES ── */
+    .games-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:40px}
+    .game-card{border-radius:22px;overflow:hidden;position:relative}
+    .game-card img{width:100%;height:280px;object-fit:cover;display:block;transition:transform 0.4s}
+    .game-card:hover img{transform:scale(1.06)}
+    .game-card-overlay{
+      position:absolute;inset:0;
+      background:linear-gradient(to top,rgba(45,26,14,0.82) 0%,rgba(45,26,14,0.1) 60%,transparent 100%);
+      display:flex;flex-direction:column;justify-content:flex-end;padding:24px;
+    }
+    .game-card h3{font-family:var(--fh);font-weight:800;font-size:22px;color:#fff;margin-bottom:6px}
+    .game-card p{font-size:14px;color:rgba(255,255,255,0.82);line-height:1.6}
+    .games-list-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:40px}
+    .age-box{
+      background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);
+      border-radius:20px;padding:26px;
+    }
+    .age-lbl{
+      display:inline-flex;align-items:center;gap:8px;
+      font-weight:700;font-size:13px;padding:6px 14px;border-radius:50px;margin-bottom:18px;
+    }
+    .al-r{background:rgba(200,50,26,0.25);color:#ff8f7a}
+    .al-t{background:rgba(26,140,110,0.25);color:#5ddcba}
+    .tags{display:flex;flex-wrap:wrap;gap:8px}
+    .gtag{
+      background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.82);
+      border:1px solid rgba(255,255,255,0.14);
+      padding:7px 14px;border-radius:50px;font-size:13px;font-weight:500;transition:all 0.2s;
+    }
+    .gtag:hover{background:rgba(200,50,26,0.3);color:#fff}
+    .session-info{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:40px 0;
+    }
+    .si{
+      background:#fff;border-radius:16px;padding:22px;text-align:center;
+      border:1.5px solid var(--border);
+    }
+    .si .icon{font-size:30px;margin-bottom:10px}
+    .si h4{font-family:var(--fh);font-weight:800;font-size:18px;color:var(--dk);margin-bottom:4px}
+    .si p{font-size:13px;color:var(--soft)}
+
+    /* ── FOOD ── */
+    .food-section{background:linear-gradient(135deg,var(--cream2) 0%,var(--cream3) 100%)}
+    .snacks-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:40px 0}
+    .snack-card{
+      background:#fff;border-radius:20px;padding:28px 20px;text-align:center;
+      border:1.5px solid var(--border);
+      box-shadow:0 4px 20px rgba(45,26,14,0.05);
+      transition:all 0.25s;
+    }
+    .snack-card:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(45,26,14,0.1)}
+    .snack-emoji{font-size:48px;margin-bottom:14px;display:block}
+    .snack-card h3{font-family:var(--fh);font-weight:800;font-size:18px;color:var(--dk);margin-bottom:6px}
+    .snack-card p{font-size:13px;color:var(--soft);line-height:1.6}
+    .snack-badge{
+      display:inline-block;background:var(--goldlt);color:var(--brown);
+      font-size:11px;font-weight:700;padding:4px 10px;border-radius:50px;
+      border:1px solid rgba(212,153,26,0.3);margin-top:10px;
+    }
+    .food-note{
+      background:linear-gradient(135deg,var(--goldlt),var(--orangelt));
+      border-radius:20px;padding:32px;border:1.5px solid rgba(212,153,26,0.25);
+      margin-top:20px;display:flex;align-items:center;gap:20px;
+    }
+    .food-note .icon{font-size:48px;flex-shrink:0}
+    .food-note h4{font-family:var(--fh);font-weight:800;font-size:20px;color:var(--dk);margin-bottom:6px}
+    .food-note p{font-size:15px;color:var(--mid);line-height:1.7}
+
+    /* ── EVENTS ── */
+    .events-gallery{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      grid-template-rows:auto auto;
+      gap:14px;margin:40px 0;
+    }
+    .ev-item{border-radius:18px;overflow:hidden;position:relative;cursor:pointer}
+    .ev-item img{width:100%;height:240px;object-fit:cover;display:block;transition:transform 0.4s}
+    .ev-item:hover img{transform:scale(1.06)}
+    .ev-item.tall img{height:494px}
+    .ev-item::after{
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(to top,rgba(45,26,14,0.4),transparent 60%);
+      opacity:0;transition:opacity 0.3s;
+    }
+    .ev-item:hover::after{opacity:1}
+    .events-offerings{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+    .eo{
+      background:#fff;border-radius:16px;padding:20px;
+      border:1.5px solid var(--border);text-align:center;
+    }
+    .eo .e{font-size:28px;margin-bottom:10px}
+    .eo h4{font-family:var(--fh);font-weight:700;font-size:16px;color:var(--dk);margin-bottom:4px}
+    .eo p{font-size:13px;color:var(--soft)}
+
+    /* ── CORPORATE ── */
+    .corp-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;margin-top:40px}
+    .corp-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .corp-card{
+      background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);
+      border-radius:18px;padding:24px;transition:all 0.25s;
+    }
+    .corp-card:hover{background:rgba(255,255,255,0.11);transform:translateY(-3px)}
+    .corp-card .e{font-size:30px;margin-bottom:12px}
+    .corp-card h4{font-family:var(--fh);font-weight:700;font-size:17px;color:#fff;margin-bottom:6px}
+    .corp-card p{font-size:13px;color:rgba(255,255,255,0.6);line-height:1.6}
+    .corp-why{position:relative;z-index:1}
+    .corp-why h3{font-family:var(--fh);font-weight:900;font-size:2rem;color:#fff;margin-bottom:20px;line-height:1.2}
+    .corp-why p{color:rgba(255,255,255,0.7);font-size:16px;line-height:1.8;margin-bottom:28px}
+    .corp-stat{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:32px}
+    .cs{text-align:center}
+    .cs .n{font-family:var(--fh);font-size:2rem;font-weight:900;color:var(--gold);display:block}
+    .cs .l{color:rgba(255,255,255,0.6);font-size:12px;font-weight:600}
+
+    /* ── CONTACT ── */
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-top:40px}
+    .ci{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+    .ci-ico{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+    .cig{background:var(--teallt)}.cir{background:var(--redlt)}.cio{background:var(--orangelt)}
+    .ci h4{font-weight:700;font-size:12px;color:var(--soft);margin-bottom:2px;text-transform:uppercase;letter-spacing:0.5px}
+    .ci p{font-weight:700;font-size:16px;color:var(--dk)}
+    .cf{display:flex;flex-direction:column;gap:14px}
+    .fg{display:flex;flex-direction:column;gap:6px}
+    .fg label{font-weight:700;font-size:14px;color:var(--dk)}
+    .fg input,.fg select{
+      padding:13px 16px;border:2px solid rgba(45,26,14,0.1);
+      border-radius:12px;font-family:var(--fb);font-size:15px;
+      color:var(--dk);background:#fff;transition:border-color 0.2s;outline:none;
+    }
+    .fg input:focus,.fg select:focus{border-color:var(--teal)}
+    .fg input[type="number"]{-moz-appearance:textfield}
+    .fg input[type="number"]::-webkit-outer-spin-button,
+    .fg input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none}
+
+    /* ── GALLERY ── */
+    .gal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:36px}
+    .gal-item{border-radius:16px;overflow:hidden}
+    .gal-item img{width:100%;height:220px;object-fit:cover;display:block;transition:transform 0.4s}
+    .gal-item:hover img{transform:scale(1.06)}
+    .gal-item.tall img{height:452px}
+
+    /* ── FOOTER ── */
+    footer{background:var(--dk);padding:50px 5% 30px;text-align:center;position:relative;z-index:1}
+    .footer-logo img{
+      height:60px;object-fit:contain;
+      filter:drop-shadow(2px 3px 0px rgba(158,34,16,0.6)) drop-shadow(0 8px 20px rgba(45,26,14,0.4));
+      margin-bottom:14px;
+    }
+    footer .tag{font-family:var(--fh);font-size:15px;color:rgba(255,255,255,0.7);margin-bottom:4px}
+    .flinks{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin:18px 0}
+    .flinks a{color:rgba(255,255,255,0.5);text-decoration:none;font-size:14px;font-weight:600;transition:color 0.2s}
+    .flinks a:hover{color:var(--gold)}
+    .fdiv{border:none;border-top:1px solid rgba(255,255,255,0.08);margin:20px 0}
+    footer p{color:rgba(255,255,255,0.4);font-size:13px;margin-bottom:4px}
+
+    /* WHATSAPP */
+    .wa{
+      position:fixed;bottom:28px;right:28px;z-index:999;
+      background:#25D366;color:#fff;width:60px;height:60px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 4px 22px rgba(37,211,102,0.5);text-decoration:none;
+      transition:all 0.2s;
+    }
+    .wa:hover{transform:scale(1.1);box-shadow:0 8px 32px rgba(37,211,102,0.6)}
+
+    /* FADE IN */
+    .fi{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease}
+    .fi.vis{opacity:1;transform:translateY(0)}
+
+    /* ── MOBILE ── */
+    @media(max-width:900px){
+      .nav-links{
+        display:none;flex-direction:column;gap:4px;
+        position:absolute;top:72px;left:0;right:0;
+        background:rgba(255,251,242,0.98);padding:16px 5%;
+        box-shadow:0 10px 30px rgba(45,26,14,0.1);
+      }
+      .nav-links.open{display:flex}
+      .hamburger{display:flex}
+      .hero{grid-template-columns:1fr;padding-top:90px;text-align:center}
+      .hero-sub{margin:0 auto 28px}
+      .hero-btns{justify-content:center}
+      .hero-slideshow-wrap{order:-1}
+      .hero-slideshow{max-width:320px;margin:0 auto}
+      .hf1,.hf2{display:none}
+      .founders-grid{grid-template-columns:1fr}
+      .games-grid,.games-list-grid,.snacks-grid,.corp-grid,.contact-grid{grid-template-columns:1fr}
+      .events-gallery{grid-template-columns:1fr 1fr}
+      .ev-item.tall img{height:240px}
+      .events-offerings,.corp-cards,.session-info{grid-template-columns:1fr 1fr}
+      .gal-grid{grid-template-columns:1fr 1fr}
+      .gal-item.tall img{height:220px}
+      section{padding:60px 5%}
+    }
+    @media(max-width:500px){
+      .snacks-grid,.events-offerings,.corp-cards,.session-info{grid-template-columns:1fr}
+      .events-gallery{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#home"><div class="logo-wrap"><img src="images/logo.jpg" alt="Aatashala Logo"/></div></a>
+  <ul class="nav-links" id="navlinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#games">Games</a></li>
+    <li><a href="#food">Food</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#corporate">Corporate</a></li>
+    <li><a href="#contact" class="nav-cta">Book Now</a></li>
+  </ul>
+  <button class="hamburger" onclick="document.getElementById('navlinks').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="stripe" style="margin-top:72px;position:relative;z-index:1"></div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="fi">
+    <div class="hero-badge">🎉 Now accepting bookings across Hyderabad</div>
+    <h1>
+      <span class="r">Revive</span> Play.<br>
+      <span class="t">Build</span> Real<br>
+      <span class="o">Connections.</span>
+    </h1>
+    <p class="hero-sub">Aatashala is a cultural movement that brings back traditional games, homemade food and joyful celebrations — the way it used to be. Come out. Play. Fall. Laugh. Belong.</p>
+    <div class="hero-btns">
+      <a href="#games" class="btn-p">🎮 Explore Games</a>
+      <a href="#contact" class="btn-s">📋 Book a Session</a>
+    </div>
+    <div style="display:flex;gap:24px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:22px">🏘️</span>
+        <div><strong style="font-family:var(--fh);color:var(--red);font-size:18px">72+</strong><br><span style="font-size:12px;color:var(--soft)">Kids per Session</span></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:22px">⭐</span>
+        <div><strong style="font-family:var(--fh);color:var(--teal);font-size:18px">5.0</strong><br><span style="font-size:12px;color:var(--soft)">Parent Rating</span></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:22px">🎯</span>
+        <div><strong style="font-family:var(--fh);color:var(--orange);font-size:18px">3 hrs</strong><br><span style="font-size:12px;color:var(--soft)">Pure Joy</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-slideshow-wrap fi">
+    <div class="hero-slideshow" id="slideshow">
+      <div class="slide active" style="background-image:url('images/game4.jpg')"></div>
+      <div class="slide" style="background-image:url('images/game1.jpg')"></div>
+      <div class="slide" style="background-image:url('images/game2.jpg')"></div>
+      <div class="slide" style="background-image:url('images/game3.jpg')"></div>
+      <div class="slide-overlay"></div>
+      <div class="slide-dots" id="dots">
+        <div class="dot active" onclick="goSlide(0)"></div>
+        <div class="dot" onclick="goSlide(1)"></div>
+        <div class="dot" onclick="goSlide(2)"></div>
+        <div class="dot" onclick="goSlide(3)"></div>
+      </div>
+    </div>
+    <div class="hero-float hf1"><span>72+</span>Kids per Session</div>
+    <div class="hero-float hf2"><span>⭐ 5.0</span> Parent Rating</div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><span class="n">72+</span><span class="l">Kids per Session</span></div>
+  <div class="stat"><span class="n">3 hrs</span><span class="l">Structured Play</span></div>
+  <div class="stat"><span class="n">10+</span><span class="l">Traditional Games</span></div>
+  <div class="stat"><span class="n">100%</span><span class="l">Parent Satisfaction</span></div>
+  <div class="stat"><span class="n" style="font-size:1.4rem">Hyderabad</span><span class="l">Currently Serving</span></div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap fi">
+    <div class="sec-tag">Who We Are</div>
+    <h2 class="sec-title">More Than a Brand.<br>It's a <span style="color:var(--red)">Movement.</span></h2>
+
+    <div class="about-vision">
+      <p>"We believe the streets should echo with children's laughter again. That communities should feel like families. That the games our grandparents played carry wisdom no classroom can teach. Aatashala is our promise — to bring back the child in every one of us, to rebuild the connections that screens have silently stolen, and to prove that the most powerful experiences in life need no Wi-Fi."</p>
+    </div>
+
+    <div class="sec-tag">The Founders</div>
+    <div class="founders-grid">
+
+      <!-- Founder 1 - You -->
+      <div class="founder-card fi">
+        <img class="founder-img" src="images/founder-you.jpg" alt="Founder" style="object-position:center top"/>
+        <div class="founder-name">Ravi Teja</div>
+        <div class="founder-role">Founder & Chief Experience Officer</div>
+        <p class="founder-note">"I've always believed that the best memories in life are made when you're out of breath, covered in mud, and laughing too hard to care. Aatashala is my way of giving that back to an entire generation."</p>
+      </div>
+
+      <!-- Founder 2 - Vishal -->
+      <div class="founder-card fi">
+        <img class="founder-img" src="images/founder-vishal.jpg" alt="Vishal" style="object-position:left center"/>
+        <div class="founder-name">Vishal</div>
+        <div class="founder-role">Co-Founder & Creative Director</div>
+        <p class="founder-note">"Every frame we capture at Aatashala tells a story — a story of a child discovering what pure joy feels like without a screen in hand. I'm here to make sure those stories are told beautifully."</p>
+      </div>
+
+      <!-- Founder 3 - Bhavika -->
+      <div class="founder-card fi">
+        <div class="founder-placeholder">🌸</div>
+        <div class="founder-name">Bhavika</div>
+        <div class="founder-role">Co-Founder & Operations Head</div>
+        <p class="founder-note">"The magic behind every Aatashala session isn't visible on the ground — it's in every document filed, every vendor coordinated, every detail planned before you arrive. That's where I live."</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- GAMES -->
+<section id="games" style="padding:40px 5% 80px">
+  <div class="dark-wrap fi">
+    <div class="sec-tag" style="background:rgba(212,153,26,0.15);border-color:rgba(212,153,26,0.3);color:var(--gold)">Community Play Sessions</div>
+    <h2 class="sec-title" style="color:#fff">Where Communities<br><span style="color:var(--gold)">Come Alive</span></h2>
+    <p class="sec-sub" style="color:rgba(255,255,255,0.65)">Every weekend, we transform your gated community's open spaces into the most joyful place in the city. Age-split teams, traditional games, real connections.</p>
+
+    <div class="session-info">
+      <div class="si">
+        <div class="icon">🕒</div>
+        <h4>3 Hours</h4>
+        <p>Post lunch sessions, 3pm–6pm</p>
+      </div>
+      <div class="si">
+        <div class="icon">👥</div>
+        <h4>Max 15/Team</h4>
+        <p>Dedicated guide per group</p>
+      </div>
+      <div class="si">
+        <div class="icon">🔄</div>
+        <h4>30 Min Rotation</h4>
+        <p>Games switch, energy stays high</p>
+      </div>
+    </div>
+
+    <div class="games-list-grid">
+      <div class="age-box">
+        <div class="age-lbl al-r">🌱 Under 6 Years</div>
+        <div class="tags">
+          <span class="gtag">Ball Throw</span>
+          <span class="gtag">Colour Colour</span>
+          <span class="gtag">Maa Thaatha Vutharam</span>
+          <span class="gtag">Pick the Pencil</span>
+          <span class="gtag">Simple Relay</span>
+          <span class="gtag">Blind Fold</span>
+        </div>
+      </div>
+      <div class="age-box">
+        <div class="age-lbl al-t">🚀 6 Years & Above</div>
+        <div class="tags">
+          <span class="gtag">7 Stones</span>
+          <span class="gtag">Ice Water</span>
+          <span class="gtag">London London Stop</span>
+          <span class="gtag">Dodge Ball</span>
+          <span class="gtag">Mudhra Ball</span>
+          <span class="gtag">Every Every Gummadi Pandu</span>
+          <span class="gtag">Balloon Burst</span>
+          <span class="gtag">Kings Game</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:40px;display:flex;gap:16px;flex-wrap:wrap;align-items:center">
+      <a href="#contact" class="btn-p" style="font-size:17px">📋 Book a Session — ₹450/child</a>
+      <p style="color:rgba(255,255,255,0.55);font-size:14px">Minimum 50 kids · We come to you</p>
+    </div>
+  </div>
+
+  <!-- Photo gallery -->
+  <div class="gal-grid" style="margin-top:24px">
+    <div class="gal-item tall"><img src="images/game4.jpg" alt=""/></div>
+    <div class="gal-item"><img src="images/game1.jpg" alt=""/></div>
+    <div class="gal-item"><img src="images/game2.jpg" alt=""/></div>
+    <div class="gal-item"><img src="images/game3.jpg" alt=""/></div>
+    <div class="gal-item"><img src="images/founder-you.jpg" alt=""/></div>
+  </div>
+</section>
+
+<!-- FOOD -->
+<section id="food" class="food-section">
+  <div class="fi" style="text-align:center;margin-bottom:8px">
+    <div class="sec-tag">Traditional Snacks</div>
+    <h2 class="sec-title">Ammamma's Kitchen<br><span style="color:var(--orange)">At Your Doorstep</span></h2>
+    <p class="sec-sub" style="margin:0 auto 16px">The same snacks your grandmothers made — organic, handmade with love by our family. Delivered fresh to your community every weekend alongside our game sessions.</p>
+  </div>
+
+  <div class="snacks-grid fi">
+    <div class="snack-card">
+      <span class="snack-emoji">🟡</span>
+      <h3>Sunnundalu</h3>
+      <p>Protein-rich urad dal laddus made with ghee and jaggery — the original energy ball</p>
+      <span class="snack-badge">🌿 Organic</span>
+    </div>
+    <div class="snack-card">
+      <span class="snack-emoji">🌀</span>
+      <h3>Chekkalu</h3>
+      <p>Crispy rice crackers spiced with green chilli and cumin — impossible to eat just one</p>
+      <span class="snack-badge">🏡 Homemade</span>
+    </div>
+    <div class="snack-card">
+      <span class="snack-emoji">🌸</span>
+      <h3>Murukulu</h3>
+      <p>Spiral rice flour snacks, fried to perfection — a Telugu childhood staple</p>
+      <span class="snack-badge">👵 Granny's Recipe</span>
+    </div>
+    <div class="snack-card">
+      <span class="snack-emoji">🟤</span>
+      <h3>Boondhi Paakam</h3>
+      <p>Sweet golden boondi coated in sugar syrup — the dessert your childhood loved</p>
+      <span class="snack-badge">🌿 Organic</span>
+    </div>
+    <div class="snack-card">
+      <span class="snack-emoji">🌶️</span>
+      <h3>Kaaram Pusa</h3>
+      <p>Spicy savoury mix made from traditional grains — the perfect play-break snack</p>
+      <span class="snack-badge">🏡 Homemade</span>
+    </div>
+    <div class="snack-card">
+      <span class="snack-emoji">🫙</span>
+      <h3>Avakaya Pickle</h3>
+      <p>Grand mother's raw mango pickle — the kind that stays in your memory for decades</p>
+      <span class="snack-badge">👵 Granny's Recipe</span>
+    </div>
+  </div>
+
+  <div class="food-note fi">
+    <div class="icon">🛵</div>
+    <div>
+      <h4>Order for Your Family Too</h4>
+      <p>Loved the snacks during the session? Anyone from the community — registered or not — can place an order. We'll prepare fresh and deliver it at our next weekend visit to your community.</p>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:32px" class="fi">
+    <a href="#contact" class="btn-o" style="font-size:17px">🛒 Raise an Order</a>
+    <p style="margin-top:12px;font-size:13px;color:var(--soft)">Orders delivered fresh every weekend · Minimum 24 hours advance order</p>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section id="events">
+  <div class="fi">
+    <div class="sec-tag">Celebrations & Decor</div>
+    <h2 class="sec-title">Make Every Moment<br><span style="color:var(--red)">Unforgettable</span></h2>
+    <p class="sec-sub">From kids' birthdays to community festivals — we bring the themes, the decor, the games and the joy. Every celebration curated with love, every detail taken care of.</p>
+  </div>
+
+  <div class="events-gallery fi">
+    <div class="ev-item tall"><img src="images/event6.jpg" alt="Rose gold balloon wall"/></div>
+    <div class="ev-item"><img src="images/event1.jpg" alt="Balloon circle arch"/></div>
+    <div class="ev-item"><img src="images/event2.jpg" alt="Happy Birthday arch"/></div>
+    <div class="ev-item"><img src="images/event3.jpg" alt="Blue balloon wall"/></div>
+    <div class="ev-item"><img src="images/event5.jpg" alt="Harry Potter theme"/></div>
+  </div>
+
+  <div class="events-offerings fi">
+    <div class="eo">
+      <div class="e">🎈</div>
+      <h4>Themed Decor</h4>
+      <p>Custom balloon setups, backdrops and styling for any theme</p>
+    </div>
+    <div class="eo">
+      <div class="e">🎂</div>
+      <h4>Custom Cakes</h4>
+      <p>Handcrafted cakes by Bhavika — designed around your child's world</p>
+    </div>
+    <div class="eo">
+      <div class="e">🎮</div>
+      <h4>Party Games</h4>
+      <p>Curated games for all ages — from tiny tots to grandparents</p>
+    </div>
+    <div class="eo">
+      <div class="e">📸</div>
+      <h4>Photography</h4>
+      <p>Professional coverage so no memory is missed</p>
+    </div>
+    <div class="eo">
+      <div class="e">🍱</div>
+      <h4>Traditional Snacks</h4>
+      <p>Add our homemade snack platters to any celebration</p>
+    </div>
+    <div class="eo">
+      <div class="e">🎊</div>
+      <h4>Full Event Planning</h4>
+      <p>End-to-end management — you show up, we take care of the rest</p>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:40px" class="fi">
+    <a href="#contact" class="btn-p" style="font-size:17px">🎉 Celebrate With Us</a>
+    <p style="margin-top:12px;font-size:13px;color:var(--soft)">Open 365 days · Community & private celebrations welcome</p>
+  </div>
+</section>
+
+<!-- CORPORATE -->
+<section id="corporate" style="padding:40px 5% 80px">
+  <div class="dark-wrap fi">
+    <div class="corp-grid">
+      <div class="corp-why">
+        <div class="sec-tag" style="background:rgba(212,153,26,0.15);border-color:rgba(212,153,26,0.3);color:var(--gold)">B2B · Corporate</div>
+        <h3>Real Engagement.<br>Not Just Activities.</h3>
+        <p>While most corporate team building feels forced and forgettable, Aatashala delivers something different — traditional games that break barriers, build genuine bonds and send people back to work genuinely refreshed.</p>
+        <div class="corp-stat">
+          <div class="cs"><span class="n">₹3000Cr+</span><span class="l">Employee Engagement Market</span></div>
+          <div class="cs"><span class="n">100%</span><span class="l">Authentic Experience</span></div>
+        </div>
+        <a href="#contact" class="btn-p" style="font-size:16px">Get Corporate Pricing →</a>
+      </div>
+      <div class="corp-cards">
+        <div class="corp-card">
+          <div class="e">🏢</div>
+          <h4>Team Building</h4>
+          <p>Traditional games designed to break silos, build trust and create real team chemistry</p>
+        </div>
+        <div class="corp-card">
+          <div class="e">🎪</div>
+          <h4>Corporate Events</h4>
+          <p>Full event planning with cultural themes, games, decor and traditional food</p>
+        </div>
+        <div class="corp-card">
+          <div class="e">🎓</div>
+          <h4>Workshops</h4>
+          <p>Personality-building game workshops — patience, focus, teamwork through play</p>
+        </div>
+        <div class="corp-card">
+          <div class="e">🏫</div>
+          <h4>School Programs</h4>
+          <p>Structured play sessions for schools — coming soon. Building curious, confident children</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section style="padding:0 5% 60px">
+  <div style="background:linear-gradient(135deg,var(--red) 0%,#a02010 100%);border-radius:28px;padding:56px 8%;text-align:center;position:relative;overflow:hidden" class="fi">
+    <div style="position:absolute;top:-20px;left:30px;font-size:160px;color:rgba(255,255,255,0.07);font-family:Georgia,serif;line-height:1">❝</div>
+    <blockquote style="font-family:var(--fh);font-size:clamp(1.3rem,2.5vw,2rem);font-weight:700;color:#fff;line-height:1.55;margin-bottom:20px;position:relative;z-index:1">My child came home and immediately asked when the next Aatashala session is. As a parent, that says everything.</blockquote>
+    <cite style="color:rgba(255,255,255,0.7);font-style:normal;font-weight:600;font-size:15px;position:relative;z-index:1">— Parent, My Home Tarkshya · November 2025</cite>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="padding:40px 5% 80px">
+  <div class="wrap fi">
+    <div class="sec-tag">Get in Touch</div>
+    <h2 class="sec-title">Let's Build Something<br><span style="color:var(--red)">Beautiful Together</span></h2>
+    <p class="sec-sub">Whether it's a weekend game session, a birthday celebration, a snack order or a corporate event — we'd love to hear from you.</p>
+
+    <div class="contact-grid">
+      <div>
+        <div style="margin:28px 0 24px">
+          <div class="ci"><div class="ci-ico cig">📞</div><div><h4>Call / WhatsApp</h4><p>+91 90637 44404</p></div></div>
+          <div class="ci"><div class="ci-ico cir">✉️</div><div><h4>Email</h4><p>aatashala1@gmail.com</p></div></div>
+          <div class="ci"><div class="ci-ico cio">📍</div><div><h4>Currently Serving</h4><p>Hyderabad</p></div></div>
+        </div>
+        <div style="background:var(--goldlt);border-radius:18px;padding:24px;border:1.5px solid rgba(212,153,26,0.25)">
+          <h4 style="font-family:var(--fh);font-weight:800;font-size:17px;margin-bottom:8px;color:var(--dk)">Our Services</h4>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <span style="background:#fff;border:1px solid var(--border);color:var(--dk);padding:6px 12px;border-radius:50px;font-size:13px;font-weight:600">🎮 Game Sessions</span>
+            <span style="background:#fff;border:1px solid var(--border);color:var(--dk);padding:6px 12px;border-radius:50px;font-size:13px;font-weight:600">🛒 Food Orders</span>
+            <span style="background:#fff;border:1px solid var(--border);color:var(--dk);padding:6px 12px;border-radius:50px;font-size:13px;font-weight:600">🎉 Events & Decor</span>
+            <span style="background:#fff;border:1px solid var(--border);color:var(--dk);padding:6px 12px;border-radius:50px;font-size:13px;font-weight:600">🏢 Corporate</span>
+          </div>
+        </div>
+      </div>
+
+      <form class="cf" name="aatashala-enquiry" method="POST" data-netlify="true" action="/thank-you" onsubmit="handleSubmit(event)">
+        <input type="hidden" name="form-name" value="aatashala-enquiry"/>
+        <div class="fg">
+          <label>Your Name *</label>
+          <input type="text" name="name" placeholder="Your name" required/>
+        </div>
+        <div class="fg">
+          <label>Phone Number *</label>
+          <input type="tel" name="phone" placeholder="+91 XXXXX XXXXX" required/>
+        </div>
+        <div class="fg">
+          <label>Gender</label>
+          <select name="gender">
+            <option value="" disabled selected>Select gender</option>
+            <option>Male</option><option>Female</option><option>Others</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>I'm interested in *</label>
+          <select name="service" required>
+            <option value="" disabled selected>Select service</option>
+            <option>Game Session (Community)</option>
+            <option>Food / Snack Order</option>
+            <option>Events & Celebrations</option>
+            <option>Corporate Package</option>
+            <option>Multiple Services</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Community / Organisation Name *</label>
+          <input type="text" name="community" placeholder="e.g. My Home Tarkshya" required/>
+        </div>
+        <div class="fg">
+          <label>Approx. Number of People</label>
+          <input type="number" name="num_people" placeholder="e.g. 60" min="1"/>
+        </div>
+        <button type="submit" class="btn-p" style="border:none;cursor:pointer;font-size:16px;justify-content:center;margin-top:4px">Send Enquiry 🚀</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<div class="stripe" style="position:relative;z-index:1"></div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <img src="images/logo.jpg" alt="Aatashala"/>
+  </div>
+  <p class="tag">…… discover the nostalgic joy ……</p>
+  <div class="flinks">
+    <a href="#about">About</a>
+    <a href="#games">Games</a>
+    <a href="#food">Food</a>
+    <a href="#events">Events</a>
+    <a href="#corporate">Corporate</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <hr class="fdiv"/>
+  <p>© 2026 Aatashala Private Limited · aatashala.com · Hyderabad</p>
+  <p style="margin-top:4px">Made with ❤️ to bring back the child in all of us.</p>
+</footer>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/919063744404?text=Hi%20Aatashala!%20I%27d%20like%20to%20know%20more." class="wa" target="_blank">
+  <svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+  // Slideshow
+  let cur=0;
+  const slides=document.querySelectorAll('.slide');
+  const dots=document.querySelectorAll('.dot');
+  function goSlide(n){
+    slides[cur].classList.remove('active');
+    dots[cur].classList.remove('active');
+    cur=n;
+    slides[cur].classList.add('active');
+    dots[cur].classList.add('active');
+  }
+  setInterval(()=>goSlide((cur+1)%slides.length),4000);
+
+  // Fade in on scroll
+  const obs=new IntersectionObserver(e=>e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('vis')}),{threshold:0.08});
+  document.querySelectorAll('.fi').forEach(el=>obs.observe(el));
+
+  // Active nav
+  const sections=document.querySelectorAll('section[id]');
+  window.addEventListener('scroll',()=>{
+    let pos=window.scrollY+100;
+    sections.forEach(s=>{
+      const link=document.querySelector(`.nav-links a[href="#${s.id}"]`);
+      if(link){
+        if(s.offsetTop<=pos&&s.offsetTop+s.offsetHeight>pos)link.classList.add('active');
+        else link.classList.remove('active');
+      }
+    });
+  });
+
+  // Form
+  function handleSubmit(e){
+    e.preventDefault();
+    const btn=e.target.querySelector('button');
+    btn.textContent='✅ Sent! We\'ll be in touch soon.';
+    btn.style.background='var(--teal)';
+    setTimeout(()=>{btn.innerHTML='Send Enquiry 🚀';btn.style.background=''},4000);
+  }
+</script>
+</body>
+</html>
