@@ -57,16 +57,29 @@
 
     .food-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
     .food-card {
-      background:white; border-radius:18px; padding:2rem 1.5rem;
-      text-align:center; border:2px solid transparent;
+      background:white; border-radius:18px; overflow:hidden;
+      border:2px solid transparent;
       box-shadow:0 4px 15px rgba(45,26,14,0.07); transition:all 0.3s;
     }
     .food-card:hover { border-color:var(--gold); transform:translateY(-5px); box-shadow:0 12px 28px rgba(212,153,26,0.2); }
-    .food-icon { font-size:3.5rem; margin-bottom:1rem; }
-    .food-name { font-family:'Baloo 2',sans-serif; font-weight:800; font-size:1.15rem; color:var(--dark); margin-bottom:0.4rem; }
-    .food-telugu { font-family:'Dancing Script',cursive; font-size:0.95rem; color:var(--gold); margin-bottom:0.6rem; }
-    .food-desc { font-size:0.85rem; color:#7a5a44; line-height:1.6; }
-    .food-badge { display:inline-block; background:#FFF8E5; color:var(--gold); padding:0.2rem 0.6rem; border-radius:10px; font-size:0.72rem; font-weight:600; margin-top:0.8rem; }
+    .food-img-wrap {
+      width:100%; height:180px; overflow:hidden; position:relative;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .food-img-wrap img {
+      width:100%; height:100%; object-fit:cover; display:block;
+      transition:transform 0.4s;
+    }
+    .food-card:hover .food-img-wrap img { transform:scale(1.06); }
+    .food-img-fallback {
+      width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+      font-size:4rem; position:absolute; inset:0;
+    }
+    .food-body { padding:1.2rem 1.2rem 1.4rem; text-align:center; }
+    .food-name { font-family:'Baloo 2',sans-serif; font-weight:800; font-size:1.1rem; color:var(--dark); margin-bottom:0.25rem; }
+    .food-telugu { font-family:'Dancing Script',cursive; font-size:0.95rem; color:var(--gold); margin-bottom:0.5rem; }
+    .food-desc { font-size:0.82rem; color:#7a5a44; line-height:1.6; }
+    .food-badge { display:inline-block; background:#FFF8E5; color:var(--gold); padding:0.2rem 0.6rem; border-radius:10px; font-size:0.72rem; font-weight:600; margin-top:0.7rem; }
 
     .how-it-works { background:#2D1A0E; border-radius:20px; padding:3rem 2rem; margin:3rem 0; }
     .how-it-works h3 { font-family:'Baloo 2',sans-serif; font-weight:900; color:white; font-size:1.5rem; text-align:center; margin-bottom:2rem; }
@@ -120,6 +133,7 @@
     @media(max-width:480px) {
       .food-grid { grid-template-columns:1fr; }
       section { padding:50px 1.2rem; }
+      .food-img-wrap { height:200px; }
     }
   </style>
 </head>
@@ -139,7 +153,7 @@
 <div class="page-hero">
   <div class="page-hero-content">
     <div class="page-tag">🍱 Organic Food</div>
-    <h1 class="page-title">Nana ki Recipes,<br /><span>Made with Love</span></h1>
+    <h1 class="page-title">Ammamma Recipes,<br /><span>Made with Love</span></h1>
     <p class="page-sub">Handcrafted traditional Telugu snacks by our grandmothers and mothers — organic, authentic, and tasting exactly like childhood.</p>
   </div>
 </div>
@@ -151,48 +165,111 @@
     <p class="section-lead">Every item is made fresh at home with no preservatives, no artificial flavours — just the way our grandmothers always made them.</p>
 
     <div class="food-grid fade-in">
+
       <div class="food-card">
-        <div class="food-icon">🟡</div>
-        <div class="food-name">Sunnundalu</div>
-        <div class="food-telugu">సున్నుండలు</div>
-        <div class="food-desc">Urad dal laddus hand-rolled with jaggery and pure desi ghee. Dense, nutritious, and irresistibly sweet.</div>
-        <div class="food-badge">🌿 Organic · Gluten-friendly</div>
+        <div class="food-img-wrap">
+          <div class="food-img-fallback" style="background:linear-gradient(135deg,#FFF3CD,#FFE082);">🟡</div>
+          <img id="img-sunnundalu" alt="Sunnundalu" style="position:relative;z-index:1;" />
+        </div>
+        <div class="food-body">
+          <div class="food-name">Sunnundalu</div>
+          <div class="food-telugu">సున్నుండలు</div>
+          <div class="food-desc">Urad dal laddus hand-rolled with jaggery and pure desi ghee. Dense, nutritious, and irresistibly sweet.</div>
+          <div class="food-badge">🌿 Organic · Gluten-friendly</div>
+        </div>
       </div>
+
       <div class="food-card">
-        <div class="food-icon">🟠</div>
-        <div class="food-name">Chekkalu</div>
-        <div class="food-telugu">చెక్కలు</div>
-        <div class="food-desc">Crispy rice crackers seasoned with sesame seeds, green chilli, and curry leaves. The perfect evening crunch.</div>
-        <div class="food-badge">🌶️ Mildly Spicy</div>
+        <div class="food-img-wrap">
+          <div class="food-img-fallback" style="background:linear-gradient(135deg,#FFE0B2,#FFCC80);">🟤</div>
+          <img id="img-chekkalu" alt="Chekkalu" style="position:relative;z-index:1;" />
+        </div>
+        <div class="food-body">
+          <div class="food-name">Chekkalu</div>
+          <div class="food-telugu">చెక్కలు</div>
+          <div class="food-desc">Crispy rice crackers seasoned with sesame seeds, green chilli, and curry leaves. The perfect evening crunch.</div>
+          <div class="food-badge">🌶️ Mildly Spicy</div>
+        </div>
       </div>
+
       <div class="food-card">
-        <div class="food-icon">🟤</div>
-        <div class="food-name">Murukulu</div>
-        <div class="food-telugu">మురుకులు</div>
-        <div class="food-desc">Spiral rice flour crisps with cumin and ajwain — the quintessential Telugu festival snack, made all year round for us.</div>
-        <div class="food-badge">✨ Festival Favourite</div>
+        <div class="food-img-wrap">
+          <div class="food-img-fallback" style="background:linear-gradient(135deg,#D7CCC8,#BCAAA4);">🌀</div>
+          <img id="img-murukulu" alt="Murukulu" style="position:relative;z-index:1;" />
+        </div>
+        <div class="food-body">
+          <div class="food-name">Murukulu</div>
+          <div class="food-telugu">మురుకులు</div>
+          <div class="food-desc">Spiral rice flour crisps with cumin and ajwain — the quintessential Telugu festival snack, made all year round for us.</div>
+          <div class="food-badge">✨ Festival Favourite</div>
+        </div>
       </div>
+
       <div class="food-card">
-        <div class="food-icon">🔵</div>
-        <div class="food-name">Boondhi Paakam</div>
-        <div class="food-telugu">బూందీ పాకం</div>
-        <div class="food-desc">Sweet boondi coated in pure sugar syrup — tiny spheres of pure joy that melt in your mouth.</div>
-        <div class="food-badge">🍬 Sweet</div>
+        <div class="food-img-wrap">
+          <div class="food-img-fallback" style="background:linear-gradient(135deg,#FFF9C4,#FFF59D);">🍡</div>
+          <img id="img-boondi" alt="Boondhi Paakam" style="position:relative;z-index:1;" />
+        </div>
+        <div class="food-body">
+          <div class="food-name">Boondhi Paakam</div>
+          <div class="food-telugu">బూందీ పాకం</div>
+          <div class="food-desc">Sweet boondi coated in pure sugar syrup — tiny spheres of pure joy that melt in your mouth.</div>
+          <div class="food-badge">🍬 Sweet</div>
+        </div>
       </div>
+
       <div class="food-card">
-        <div class="food-icon">🔴</div>
-        <div class="food-name">Kaaram Pusa</div>
-        <div class="food-telugu">కారం పూస</div>
-        <div class="food-desc">Spiced peanut and chickpea mix — roasted with a signature blend of spices. Addictively good with evening tea.</div>
-        <div class="food-badge">🌶️ Spicy Mix</div>
+        <div class="food-img-wrap">
+          <div class="food-img-fallback" style="background:linear-gradient(135deg,#FFCDD2,#EF9A9A);">🌶️</div>
+          <img id="img-kaaram" alt="Kaaram Pusa" style="position:relative;z-index:1;" />
+        </div>
+        <div class="food-body">
+          <div class="food-name">Kaaram Pusa</div>
+          <div class="food-telugu">కారం పూస</div>
+          <div class="food-desc">Spiced peanut and chickpea mix — roasted with a signature blend of spices. Addictively good with evening tea.</div>
+          <div class="food-badge">🌶️ Spicy Mix</div>
+        </div>
       </div>
+
       <div class="food-card">
-        <div class="food-icon">🟢</div>
-        <div class="food-name">Avakaya Pickle</div>
-        <div class="food-telugu">అవకాయ పచ్చడి</div>
-        <div class="food-desc">Traditional raw mango pickle made the old way — with patience, love, and a secret family recipe passed down for generations.</div>
-        <div class="food-badge">🥭 Seasonal · Limited</div>
+        <div class="food-img-wrap">
+          <div class="food-img-fallback" style="background:linear-gradient(135deg,#C8E6C9,#A5D6A7);">🥭</div>
+          <img id="img-avakaya" alt="Avakaya Pickle" style="position:relative;z-index:1;" />
+        </div>
+        <div class="food-body">
+          <div class="food-name">Avakaya Pickle</div>
+          <div class="food-telugu">అవకాయ పచ్చడి</div>
+          <div class="food-desc">Traditional raw mango pickle made the old way — with patience, love, and a secret family recipe passed down for generations.</div>
+          <div class="food-badge">🥭 Seasonal · Limited</div>
+        </div>
       </div>
+
+      <div class="food-card">
+        <div class="food-img-wrap">
+          <div class="food-img-fallback" style="background:linear-gradient(135deg,#FFCCBC,#FF8A65);">🍗</div>
+          <img id="img-chicken" alt="Chicken Pickle" style="position:relative;z-index:1;" />
+        </div>
+        <div class="food-body">
+          <div class="food-name">Chicken Pickle</div>
+          <div class="food-telugu">చికెన్ పచ్చడి</div>
+          <div class="food-desc">Tender chicken slow-cooked with fiery Guntur chillies, mustard oil, and secret spices. A bold non-veg indulgence.</div>
+          <div class="food-badge">🌶️ Non-Veg · Spicy</div>
+        </div>
+      </div>
+
+      <div class="food-card">
+        <div class="food-img-wrap">
+          <div class="food-img-fallback" style="background:linear-gradient(135deg,#F8BBD0,#F06292);">🦐</div>
+          <img id="img-prawn" alt="Prawn Pickle" style="position:relative;z-index:1;" />
+        </div>
+        <div class="food-body">
+          <div class="food-name">Prawn Pickle</div>
+          <div class="food-telugu">రొయ్యల పచ్చడి</div>
+          <div class="food-desc">Coastal Andhra specialty — sun-dried prawns pickled with mustard, red chilli and sesame oil. A rare delicacy from ammamma's kitchen.</div>
+          <div class="food-badge">🦐 Non-Veg · Coastal Special</div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -248,7 +325,7 @@
             <textarea name="items" placeholder="e.g. Sunnundalu x2, Chekkalu x1, Murukulu x2..." required></textarea>
           </div>
           <button type="submit" class="btn-submit" id="foodSubmitBtn">🛒 Send My Order</button>
-          <p class="form-note">We'll call to confirm quantities, pricing and delivery. 🙏</p>
+          <p class="form-note">We'll call to confirm quantities, pricing and delivery.</p>
         </form>
         <div class="form-success" id="foodSuccess">
           <div class="check">🎉</div>
@@ -278,6 +355,30 @@
     entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }});
   }, {threshold:0.1});
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+  // Fetch real food images from Wikipedia API
+  const foodImages = [
+    { id: 'img-sunnundalu', wiki: 'Sunnundallu' },
+    { id: 'img-chekkalu',   wiki: 'Chekkalu' },
+    { id: 'img-murukulu',   wiki: 'Murukku' },
+    { id: 'img-boondi',     wiki: 'Boondi' },
+    { id: 'img-kaaram',     wiki: 'Mixture_(snack)' },
+    { id: 'img-avakaya',    wiki: 'Avakaya' },
+    { id: 'img-chicken',    wiki: 'Chicken_as_food' },
+    { id: 'img-prawn',      wiki: 'Shrimp_and_prawn_as_food' },
+  ];
+  foodImages.forEach(({ id, wiki }) => {
+    fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${wiki}`)
+      .then(r => r.json())
+      .then(data => {
+        const img = document.getElementById(id);
+        if (img && data.thumbnail && data.thumbnail.source) {
+          img.src = data.thumbnail.source;
+          img.style.display = 'block';
+        }
+      })
+      .catch(() => {});
+  });
 
   const form = document.getElementById('foodForm');
   const btn = document.getElementById('foodSubmitBtn');
