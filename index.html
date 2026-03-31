@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aatashala — Discover the Nostalgic Joy</title>
+  <meta name="description" content="Aatashala revives traditional Indian games and community bonding in Hyderabad. Weekend sessions in gated communities." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800;900&family=Hind:wght@300;400;500;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Hind', sans-serif; background: #FFFBF2; color: #2D1A0E; overflow-x: hidden; }
+
+    :root {
+      --red: #C8321A; --teal: #1A8C6E; --orange: #E8821A;
+      --gold: #D4991A; --cream: #FFFBF2; --dark: #2D1A0E;
+      --light-red: #F5E8E5; --light-teal: #E5F5F0;
+    }
+
+    .kolam-bg {
+      background-image: radial-gradient(circle, #D4991A22 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .rainbow-bar {
+      height: 5px;
+      background: linear-gradient(90deg,#C8321A,#E8821A,#D4991A,#1A8C6E,#1A5C8C,#7B2FC8,#C8321A);
+      background-size: 200% 100%;
+      animation: rainbowShift 4s linear infinite;
+    }
+    @keyframes rainbowShift { 0%{background-position:0% 0} 100%{background-position:200% 0} }
+
+    /* ===== LOGO ===== */
+    .logo-wrap { display:flex; align-items:center; gap:0.5rem; text-decoration:none; }
+    .logo-text-block { display:flex; flex-direction:column; line-height:1; }
+    .logo-letters {
+      font-family: 'Baloo 2', sans-serif; font-weight: 900;
+      font-size: 1.7rem; letter-spacing: -1px;
+      display: flex; align-items: flex-end; gap: 0;
+    }
+    .l-r  { color: #C8321A; }
+    .l-t  { color: #1A8C6E; }
+    .l-o  { color: #E8821A; }
+    .l-d  { color: #2D1A0E; }
+    .logo-tagline {
+      font-family: 'Dancing Script', cursive;
+      font-size: 0.65rem; color: #7a5a44; letter-spacing: 0.5px;
+      white-space: nowrap; margin-top: -2px;
+    }
+    .logo-icon {
+      width: 42px; height: 42px;
+      background: linear-gradient(135deg, #C8321A, #E8821A);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; flex-shrink: 0;
+      box-shadow: 2px 3px 8px rgba(200,50,26,0.3);
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:1000;
+      background:rgba(255,251,242,0.96); backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(200,50,26,0.12);
+    }
+    .nav-inner {
+      max-width:1200px; margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between;
+      height:68px; padding:0 2rem;
+    }
+    .nav-links { display:flex; align-items:center; gap:0.2rem; list-style:none; }
+    .nav-links a {
+      text-decoration:none; color:var(--dark); font-weight:500; font-size:0.9rem;
+      padding:0.4rem 0.8rem; border-radius:6px; transition:all 0.2s;
+    }
+    .nav-links a:hover { background:var(--light-red); color:var(--red); }
+    .nav-cta {
+      background:var(--red)!important; color:white!important;
+      padding:0.5rem 1.3rem!important; border-radius:25px!important;
+      font-weight:700!important; box-shadow:0 3px 10px rgba(200,50,26,0.3);
+    }
+    .nav-cta:hover { background:#a82515!important; transform:translateY(-1px); box-shadow:0 5px 15px rgba(200,50,26,0.4)!important; }
+    .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:6px; }
+    .hamburger span { display:block; width:24px; height:2px; background:var(--dark); border-radius:2px; transition:all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity:0; }
+    .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+    .mobile-menu {
+      display:none; position:fixed; top:68px; left:0; right:0;
+      background:var(--cream); border-bottom:3px solid var(--red);
+      padding:1rem; z-index:999; flex-direction:column; gap:0.5rem;
+      box-shadow:0 8px 20px rgba(0,0,0,0.1);
+    }
+    .mobile-menu.open { display:flex; }
+    .mobile-menu a {
+      text-decoration:none; color:var(--dark); font-weight:500;
+      padding:0.75rem 1rem; border-radius:8px; font-size:1rem; transition:background 0.2s;
+    }
+    .mobile-menu a:hover { background:var(--light-red); color:var(--red); }
+    .mobile-menu .nav-cta { background:var(--red)!important; color:white!important; text-align:center; border-radius:25px!important; }
+
+    /* ===== HERO ===== */
+    #hero {
+      position:relative; min-height:100vh;
+      display:flex; align-items:center; justify-content:center;
+      overflow:hidden; padding-top:68px;
+    }
+    .hero-slides { position:absolute; inset:0; z-index:0; }
+    .hero-slide {
+      position:absolute; inset:0; background-size:cover; background-position:center;
+      opacity:0; transition:opacity 1.2s ease;
+    }
+    .hero-slide.active { opacity:1; }
+    .hero-slide:nth-child(1) { background-image:url('game1.jpg'); animation:kenBurns 8s ease-in-out infinite alternate; }
+    .hero-slide:nth-child(2) { background-image:url('game2.jpg'); animation:kenBurns 8s ease-in-out 2s infinite alternate; }
+    .hero-slide:nth-child(3) { background-image:url('game3.jpg'); animation:kenBurns 8s ease-in-out 4s infinite alternate; }
+    .hero-slide:nth-child(4) { background-image:url('game4.jpg'); animation:kenBurns 8s ease-in-out 6s infinite alternate; }
+    @keyframes kenBurns { 0%{transform:scale(1) translate(0,0)} 100%{transform:scale(1.08) translate(-1%,-1%)} }
+    .hero-overlay {
+      position:absolute; inset:0; z-index:1;
+      background:linear-gradient(160deg,rgba(45,26,14,0.68) 0%,rgba(200,50,26,0.38) 50%,rgba(26,140,110,0.45) 100%);
+    }
+    /* Fallback gradient if images don't load */
+    .hero-slides-fallback {
+      position:absolute; inset:0; z-index:0;
+      background: linear-gradient(135deg, #2D1A0E 0%, #C8321A 50%, #1A8C6E 100%);
+    }
+    .hero-content {
+      position:relative; z-index:2; text-align:center; padding:2rem;
+      animation:heroFadeUp 1s ease 0.3s both;
+      width: 100%; max-width: 900px; margin: 0 auto;
+    }
+    @keyframes heroFadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+    .hero-eyebrow {
+      display:inline-block;
+      background:rgba(255,255,255,0.15); backdrop-filter:blur(8px);
+      border:1px solid rgba(255,255,255,0.3); color:white;
+      font-size:0.85rem; font-weight:500; letter-spacing:2px;
+      text-transform:uppercase; padding:0.4rem 1.2rem;
+      border-radius:20px; margin-bottom:1.5rem;
+    }
+
+    /* BIG LOGO in hero */
+    .hero-logo {
+      width: 100%; text-align: center;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+    .hero-logo-letters {
+      font-family: 'Baloo 2', sans-serif; font-weight: 900;
+      font-size: clamp(3.5rem, 9vw, 7rem);
+      display: flex; align-items: flex-end; justify-content: center;
+      gap: 0; line-height: 1; width: 100%;
+      filter: drop-shadow(0 4px 20px rgba(0,0,0,0.4));
+    }
+    .hl-r { color: #FF6B6B; }
+    .hl-t { color: #4ECDC4; }
+    .hl-o { color: #FFD93D; }
+    .hl-g { color: #95E1D3; }
+    .hl-d { color: white; }
+    .hero-logo-tagline {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      color: rgba(255,255,255,0.9);
+      text-align: center; margin-top: -0.3rem;
+      letter-spacing: 1px;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
+    }
+
+    .hero-subtitle {
+      font-family:'Hind',sans-serif; font-size:clamp(1rem,2.5vw,1.3rem);
+      color:rgba(255,255,255,0.85); font-weight:300; margin:1rem 0 2.5rem;
+      font-style:italic;
+    }
+    .hero-actions { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+    .btn-primary {
+      background:var(--red); color:white; padding:0.9rem 2rem; border-radius:30px;
+      font-family:'Baloo 2',sans-serif; font-weight:800; font-size:1rem;
+      text-decoration:none; border:none; cursor:pointer;
+      box-shadow:0 6px 20px rgba(200,50,26,0.4); transition:all 0.25s; display:inline-block;
+    }
+    .btn-primary:hover { transform:translateY(-2px); background:#a82515; box-shadow:0 8px 25px rgba(200,50,26,0.5); }
+    .btn-secondary {
+      background:rgba(255,255,255,0.15); color:white; padding:0.9rem 2rem; border-radius:30px;
+      font-family:'Baloo 2',sans-serif; font-weight:700; font-size:1rem;
+      text-decoration:none; border:2px solid rgba(255,255,255,0.5);
+      backdrop-filter:blur(8px); transition:all 0.25s; display:inline-block;
+    }
+    .btn-secondary:hover { background:rgba(255,255,255,0.25); border-color:white; }
+    .hero-scroll {
+      position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); z-index:2;
+    }
+    .hero-scroll span {
+      display:block; width:28px; height:44px; border:2px solid rgba(255,255,255,0.6);
+      border-radius:14px; margin:0 auto; position:relative;
+    }
+    .hero-scroll span::after {
+      content:''; display:block; width:4px; height:8px; background:white;
+      border-radius:2px; position:absolute; top:6px; left:50%; transform:translateX(-50%);
+      animation:scrollDot 2s infinite;
+    }
+    @keyframes scrollDot { 0%,100%{opacity:1;top:6px} 50%{opacity:0.3;top:22px} }
+
+    /* ===== STATS ===== */
+    #stats { background:var(--dark); padding:1.5rem 2rem; }
+    .stats-inner {
+      max-width:1200px; margin:0 auto;
+      display:flex; align-items:center; justify-content:space-around; flex-wrap:wrap; gap:1rem;
+    }
+    .stat-item { text-align:center; color:white; }
+    .stat-num { font-family:'Baloo 2',sans-serif; font-weight:900; font-size:2rem; color:#FFD166; display:block; line-height:1; }
+    .stat-label { font-family:'Hind',sans-serif; font-size:0.8rem; color:rgba(255,255,255,0.7); text-transform:uppercase; letter-spacing:1px; }
+    .stat-div { width:1px; height:40px; background:rgba(255,255,255,0.15); }
+
+    /* ===== SECTIONS ===== */
+    section { padding:80px 2rem; }
+    .section-inner { max-width:1200px; margin:0 auto; }
+    .section-tag {
+      display:inline-flex; align-items:center; gap:0.5rem;
+      background:var(--light-red); color:var(--red);
+      padding:0.3rem 1rem; border-radius:20px;
+      font-size:0.8rem; font-weight:600; letter-spacing:1.5px; text-transform:uppercase;
+      margin-bottom:1rem;
+    }
+    .section-tag.teal { background:var(--light-teal); color:var(--teal); }
+    h2.section-title {
+      font-family:'Baloo 2',sans-serif; font-weight:900;
+      font-size:clamp(2rem,4vw,3rem); color:var(--dark); line-height:1.1; margin-bottom:1rem;
+    }
+    h2.section-title span { color:var(--red); }
+    .section-lead { font-size:1.05rem; color:#5a3e2b; line-height:1.7; max-width:640px; }
+    .fade-in { opacity:0; transform:translateY(24px); transition:opacity 0.6s ease,transform 0.6s ease; }
+    .fade-in.visible { opacity:1; transform:translateY(0); }
+
+    /* ===== ABOUT ===== */
+    #about { background:var(--cream); }
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; margin-top:3rem; }
+    .about-story { font-size:1.05rem; line-height:1.8; color:#4a3020; }
+    .about-story p { margin-bottom:1rem; }
+    .about-story strong { color:var(--red); font-weight:600; }
+    .founders-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; }
+    .founder-card {
+      background:white; border-radius:14px; border:2px solid rgba(200,50,26,0.1);
+      overflow:hidden; text-align:center; transition:all 0.3s;
+      box-shadow:0 4px 15px rgba(45,26,14,0.07);
+    }
+    .founder-card:hover { transform:translateY(-4px); box-shadow:0 10px 25px rgba(45,26,14,0.14); border-color:rgba(200,50,26,0.3); }
+    .founder-photo { width:100%; height:190px; object-fit:cover; object-position:top; display:block; background:#f0d0c8; }
+    .founder-photo.vishal-photo { object-position: left center; }
+    .founder-photo-placeholder { width:100%; height:190px; background:linear-gradient(135deg,#E5F5F0,#c8e8e0); display:flex; align-items:center; justify-content:center; font-size:3.5rem; }
+    .founder-info { padding:1rem; }
+    .founder-name { font-family:'Baloo 2',sans-serif; font-weight:800; font-size:1rem; color:var(--dark); margin-bottom:0.2rem; }
+    .founder-role { font-size:0.75rem; color:var(--red); font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:0.5rem; }
+    .founder-note { font-size:0.82rem; color:#7a5a44; line-height:1.5; }
+
+    /* ===== GAMES ===== */
+    #games {
+      background:var(--dark);
+      background-image:radial-gradient(circle,rgba(200,50,26,0.08) 1px,transparent 1px);
+      background-size:20px 20px;
+    }
+    #games h2.section-title { color:white; }
+    #games h2.section-title span { color:#FFD166; }
+    #games .section-lead { color:rgba(255,255,255,0.7); }
+
+    .session-flow { display:flex; align-items:center; gap:0.5rem; margin:2.5rem 0; flex-wrap:wrap; }
+    .flow-step {
+      background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15);
+      border-radius:12px; padding:1rem 1.5rem; text-align:center; flex:1; min-width:120px;
+    }
+    .flow-step .icon { font-size:1.8rem; margin-bottom:0.4rem; }
+    .flow-step .label { font-weight:600; color:white; font-size:0.88rem; }
+    .flow-step .sub { font-size:0.72rem; color:rgba(255,255,255,0.5); margin-top:0.2rem; }
+    .flow-arrow { color:rgba(255,255,255,0.3); font-size:1.5rem; flex-shrink:0; }
+
+    .games-split { display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin:2rem 0; }
+    .age-card { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:16px; padding:1.5rem; }
+    .age-card h4 { font-family:'Baloo 2',sans-serif; font-weight:800; font-size:1.05rem; margin-bottom:1rem; display:flex; align-items:center; gap:0.5rem; }
+    .age-card.under6 h4 { color:#FFD166; }
+    .age-card.over6 h4 { color:#A8E6CF; }
+    .games-tags { display:flex; flex-wrap:wrap; gap:0.5rem; }
+    .game-tag {
+      background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.85);
+      padding:0.3rem 0.8rem; border-radius:20px; font-size:0.8rem;
+      border:1px solid rgba(255,255,255,0.1);
+    }
+
+    .photo-gallery { display:grid; grid-template-columns:repeat(4,1fr); gap:0.75rem; margin-top:2rem; }
+    .gallery-img { aspect-ratio:1; overflow:hidden; border-radius:8px; background:rgba(255,255,255,0.05); }
+    .gallery-img img { width:100%; height:100%; object-fit:cover; transition:transform 0.4s; }
+    .gallery-img:hover img { transform:scale(1.08); }
+
+    .pricing-bar {
+      margin-top:2.5rem;
+      background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15);
+      border-radius:16px; padding:1.5rem 2rem;
+      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;
+    }
+    .price-big { font-family:'Baloo 2',sans-serif; font-weight:900; font-size:2.2rem; color:#FFD166; }
+    .price-sub { color:rgba(255,255,255,0.6); font-size:0.9rem; margin-top:0.2rem; }
+
+    /* ===== TESTIMONIAL ===== */
+    #testimonial {
+      background:linear-gradient(135deg,var(--red) 0%,#8B1E10 100%);
+      padding:80px 2rem; text-align:center;
+    }
+    .testimonial-quote {
+      font-family:'Baloo 2',sans-serif; font-weight:600;
+      font-size:clamp(1.2rem,3vw,1.9rem); color:white;
+      max-width:780px; margin:0 auto; line-height:1.6; font-style:italic;
+      position:relative;
+    }
+    .testimonial-quote::before { content:'"'; font-size:6rem; opacity:0.2; font-family:Georgia,serif; position:absolute; top:-2.5rem; left:-1.5rem; line-height:1; }
+    .testimonial-author { margin-top:2rem; color:rgba(255,255,255,0.75); font-size:0.95rem; }
+    .testimonial-author strong { color:white; display:block; margin-bottom:0.2rem; font-size:1rem; }
+
+    /* ===== CONTACT ===== */
+    #contact { background:var(--cream); }
+    .contact-layout { display:grid; grid-template-columns:1fr 1.5fr; gap:4rem; margin-top:2.5rem; align-items:start; }
+    .contact-info h3 { font-family:'Baloo 2',sans-serif; font-weight:800; font-size:1.4rem; color:var(--dark); margin-bottom:1rem; }
+    .contact-detail { display:flex; align-items:center; gap:0.75rem; margin-bottom:0.75rem; font-size:0.95rem; color:#5a3e2b; }
+    .contact-detail a { color:var(--red); text-decoration:none; }
+    .contact-detail a:hover { text-decoration:underline; }
+    .contact-serving { margin-top:1.5rem; background:var(--light-teal); border:1px solid rgba(26,140,110,0.2); border-radius:12px; padding:1rem 1.2rem; }
+    .contact-serving p { font-size:0.9rem; color:var(--teal); font-weight:500; }
+
+    .contact-form { background:white; border-radius:20px; padding:2.5rem; box-shadow:0 8px 30px rgba(45,26,14,0.1); border:1px solid rgba(200,50,26,0.1); }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    .form-group { margin-bottom:1.2rem; }
+    .form-group label { display:block; font-weight:600; font-size:0.82rem; color:var(--dark); margin-bottom:0.4rem; text-transform:uppercase; letter-spacing:0.5px; }
+    .form-group label span { color:var(--red); }
+    .form-group input, .form-group select {
+      width:100%; padding:0.75rem 1rem; border:2px solid rgba(200,50,26,0.15);
+      border-radius:10px; font-family:'Hind',sans-serif; font-size:0.95rem; color:var(--dark);
+      background:var(--cream); outline:none; transition:all 0.2s; appearance:none; -webkit-appearance:none;
+    }
+    .form-group input:focus, .form-group select:focus { border-color:var(--red); box-shadow:0 0 0 3px rgba(200,50,26,0.1); }
+    .select-wrap { position:relative; }
+    .select-wrap::after { content:'▾'; position:absolute; right:1rem; top:50%; transform:translateY(-50%); color:var(--red); pointer-events:none; font-size:0.9rem; }
+    .btn-submit {
+      width:100%; background:var(--red); color:white; padding:1rem; border-radius:30px;
+      border:none; cursor:pointer; font-family:'Baloo 2',sans-serif; font-weight:800; font-size:1.05rem;
+      box-shadow:0 4px 15px rgba(200,50,26,0.35); transition:all 0.25s; margin-top:0.5rem;
+    }
+    .btn-submit:hover { background:#a82515; transform:translateY(-2px); }
+    .btn-submit:disabled { opacity:0.7; cursor:not-allowed; transform:none; }
+    .form-success { display:none; text-align:center; padding:2rem; }
+    .form-success .check { font-size:3rem; margin-bottom:0.5rem; }
+    .form-success h3 { font-family:'Baloo 2',sans-serif; font-weight:800; color:var(--teal); font-size:1.5rem; }
+    .form-success p { color:#5a3e2b; margin-top:0.5rem; }
+    .form-note { font-size:0.78rem; color:#9a7a64; text-align:center; margin-top:0.75rem; line-height:1.5; }
+
+    /* ===== EXPLORE MORE ===== */
+    #explore { background:#2D1A0E; padding:80px 2rem; }
+    #explore h2 { font-family:'Baloo 2',sans-serif; font-weight:900; font-size:clamp(1.8rem,3.5vw,2.5rem); color:white; text-align:center; margin-bottom:0.75rem; }
+    #explore p.sub { text-align:center; color:rgba(255,255,255,0.55); font-size:1rem; margin-bottom:3rem; }
+    .explore-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; max-width:1000px; margin:0 auto; }
+    .explore-card {
+      text-decoration:none; border-radius:20px; overflow:hidden;
+      transition:all 0.35s; display:block; position:relative;
+      border:2px solid rgba(255,255,255,0.08);
+    }
+    .explore-card:hover { transform:translateY(-6px); border-color:rgba(255,255,255,0.2); box-shadow:0 16px 40px rgba(0,0,0,0.4); }
+    .explore-card-inner { padding:2.5rem 2rem; text-align:center; height:100%; display:flex; flex-direction:column; align-items:center; }
+    .explore-card.food .explore-card-inner { background:linear-gradient(145deg,#3D2A0A,#5C3D10); }
+    .explore-card.corporate .explore-card-inner { background:linear-gradient(145deg,#0A2D1A,#103D25); }
+    .explore-card.events .explore-card-inner { background:linear-gradient(145deg,#2D0A1A,#3D1025); }
+    .explore-icon {
+      width:72px; height:72px; border-radius:18px; margin-bottom:1.2rem;
+      display:flex; align-items:center; justify-content:center; font-size:2rem;
+    }
+    .explore-card.food .explore-icon { background:rgba(212,153,26,0.2); border:1px solid rgba(212,153,26,0.3); }
+    .explore-card.corporate .explore-icon { background:rgba(26,140,110,0.2); border:1px solid rgba(26,140,110,0.3); }
+    .explore-card.events .explore-icon { background:rgba(200,50,26,0.2); border:1px solid rgba(200,50,26,0.3); }
+    .explore-title { font-family:'Baloo 2',sans-serif; font-weight:900; font-size:1.25rem; color:white; margin-bottom:0.6rem; }
+    .explore-desc { font-size:0.88rem; color:rgba(255,255,255,0.55); line-height:1.6; flex:1; }
+    .explore-arrow {
+      margin-top:1.5rem; display:inline-flex; align-items:center; gap:0.4rem;
+      font-family:'Baloo 2',sans-serif; font-weight:700; font-size:0.85rem;
+      padding:0.5rem 1.2rem; border-radius:20px;
+    }
+    .explore-card.food .explore-arrow { background:rgba(212,153,26,0.2); color:#FFD166; }
+    .explore-card.corporate .explore-arrow { background:rgba(26,140,110,0.2); color:#A8E6CF; }
+    .explore-card.events .explore-arrow { background:rgba(200,50,26,0.2); color:#FFAAAA; }
+
+    /* ===== FOOTER ===== */
+    footer { background:#1A0E08; padding:3rem 2rem 2rem; }
+    .footer-inner { max-width:1200px; margin:0 auto; }
+    .footer-top { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:2rem; padding-bottom:2rem; border-bottom:1px solid rgba(255,255,255,0.08); }
+    .footer-brand-name { font-family:'Baloo 2',sans-serif; font-weight:900; font-size:1.4rem; color:white; margin-bottom:0.2rem; }
+    .footer-tagline { font-family:'Dancing Script',cursive; font-size:0.95rem; color:rgba(255,255,255,0.4); }
+    .footer-links h4 { font-family:'Baloo 2',sans-serif; font-weight:700; color:white; margin-bottom:0.75rem; font-size:0.95rem; }
+    .footer-links ul { list-style:none; }
+    .footer-links li { margin-bottom:0.4rem; }
+    .footer-links a { text-decoration:none; color:rgba(255,255,255,0.5); font-size:0.85rem; transition:color 0.2s; }
+    .footer-links a:hover { color:#FFD166; }
+    .footer-bottom { padding-top:1.5rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }
+    .footer-bottom p { font-size:0.78rem; color:rgba(255,255,255,0.3); }
+
+    /* ===== WHATSAPP ===== */
+    .wa-float {
+      position:fixed; bottom:2rem; right:2rem; z-index:999;
+      background:#25D366; color:white; width:54px; height:54px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center; font-size:1.5rem;
+      text-decoration:none; box-shadow:0 4px 20px rgba(37,211,102,0.4); transition:all 0.3s;
+    }
+    .wa-float:hover { transform:scale(1.1); }
+
+    /* ===== RESPONSIVE ===== */
+    @media(max-width:900px) {
+      .about-grid { grid-template-columns:1fr; gap:2.5rem; }
+      .explore-cards { grid-template-columns:1fr; max-width:420px; }
+    }
+    @media(max-width:768px) {
+      .nav-links { display:none; }
+      .hamburger { display:flex; }
+      .games-split { grid-template-columns:1fr; }
+      .photo-gallery { grid-template-columns:repeat(2,1fr); }
+      .contact-layout { grid-template-columns:1fr; }
+      .form-row { grid-template-columns:1fr; }
+      .founders-grid { grid-template-columns:1fr; }
+      .stat-div { display:none; }
+      .session-flow { flex-direction:column; }
+      .flow-arrow { transform:rotate(90deg); }
+      .footer-top { flex-direction:column; }
+    }
+    @media(max-width:480px) {
+      section { padding:60px 1.2rem; }
+      .contact-form { padding:1.5rem; }
+      .explore-cards { grid-template-columns:1fr; }
+      .pricing-bar { flex-direction:column; text-align:center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="rainbow-bar"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#hero" class="logo-wrap">
+      <div class="logo-icon">🎯</div>
+      <div class="logo-text-block">
+        <div class="logo-letters">
+          <span class="l-r">A</span><span class="l-t">a</span><span class="l-o">t</span><span class="l-t">a</span><span class="l-r">s</span><span class="l-d">h</span><span class="l-t">a</span><span class="l-o">l</span><span class="l-r">A</span>
+        </div>
+        <div class="logo-tagline">..... discover the nostalgic joy .....</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#games">Games</a></li>
+      <li><a href="#contact" class="nav-cta">Book a Session</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#games" onclick="closeMenu()">Games</a>
+  <a href="#contact" class="nav-cta" onclick="closeMenu()">Book a Session</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-slides-fallback"></div>
+  <div class="hero-slides">
+    <div class="hero-slide active"></div>
+    <div class="hero-slide"></div>
+    <div class="hero-slide"></div>
+    <div class="hero-slide"></div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">🏘️ Community · Play · Joy · Hyderabad</div>
+
+    <div class="hero-logo">
+      <div class="hero-logo-letters">
+        <span class="hl-r">A</span><span class="hl-t">a</span><span class="hl-o">t</span><span class="hl-t">a</span><span class="hl-r">s</span><span class="hl-d">h</span><span class="hl-g">a</span><span class="hl-o">l</span><span class="hl-r">A</span>
+      </div>
+      <div class="hero-logo-tagline">..... discover the nostalgic joy .....</div>
+    </div>
+
+    <p class="hero-subtitle">Revive Play. Build Real Connections.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">🎯 Book for My Community</a>
+      <a href="#games" class="btn-secondary">See What We Play</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><span></span></div>
+</section>
+
+<!-- STATS -->
+<div id="stats">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <span class="stat-num" data-count="72">0</span>
+      <span class="stat-label">Kids at Trial</span>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat-item">
+      <span class="stat-num">3 hrs</span>
+      <span class="stat-label">Per Session</span>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat-item">
+      <span class="stat-num">10+</span>
+      <span class="stat-label">Traditional Games</span>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat-item">
+      <span class="stat-num">100%</span>
+      <span class="stat-label">Parent Satisfaction</span>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat-item">
+      <span class="stat-num">📍</span>
+      <span class="stat-label">Hyderabad</span>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="kolam-bg">
+  <div class="section-inner">
+    <div class="section-tag">✨ Our Story</div>
+    <h2 class="section-title">Where <span>Nostalgia</span> Meets Community</h2>
+
+    <div class="about-grid fade-in">
+      <div class="about-story">
+        <p>It started with <strong>15 cousins</strong> — ages 16 to 35 — gathering every weekend to play the games we grew up with. 7 Stones. Ice Water. London London Stop. Games our grandparents played.</p>
+        <p>Neighbours started joining. Then other parents, other families. The energy was electric — pure, unfiltered joy that no screen can replicate.</p>
+        <p>We took that energy to <strong>My Home Tarkshya, Kokapet</strong> for a trial session. <strong>72 kids</strong> showed up. Every single parent gave positive feedback. My Home Tarkshya called us back for more.</p>
+        <p>That's Aatashala — a cultural movement bringing back the best of our childhood, one community at a time.</p>
+      </div>
+
+      <div>
+        <div style="margin-bottom:1rem;"><div class="section-tag">👥 The Team</div></div>
+        <div class="founders-grid">
+          <div class="founder-card">
+            <img class="founder-photo" src="founder-you.jpg" alt="Raja Polavarapu"
+              onerror="this.outerHTML='<div class=\'founder-photo-placeholder\'>🎤</div>'" />
+            <div class="founder-info">
+              <div class="founder-name">Raja Polavarapu</div>
+              <div class="founder-role">Founder & Chief Experience Officer</div>
+              <div class="founder-note">Visionary behind every game, session, and joyful moment at Aatashala.</div>
+            </div>
+          </div>
+          <div class="founder-card">
+            <div class="founder-photo-placeholder">🌸</div>
+            <div class="founder-info">
+              <div class="founder-name">Bhavika</div>
+              <div class="founder-role">Co-Founder & Operations Head</div>
+              <div class="founder-note">The engine of Aatashala — logistics, marketing, and everything in between.</div>
+            </div>
+          </div>
+          <div class="founder-card">
+            <img class="founder-photo vishal-photo" src="founder-vishal.jpg" alt="Vishal"
+              onerror="this.outerHTML='<div class=\'founder-photo-placeholder\'>🎬</div>'" />
+            <div class="founder-info">
+              <div class="founder-name">Vishal</div>
+              <div class="founder-role">Co-Founder & Creative Director</div>
+              <div class="founder-note">Drone shots, creative vision, and energy that makes every session cinematic.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GAMES -->
+<section id="games">
+  <div class="section-inner">
+    <div class="section-tag teal">🎯 What We Play</div>
+    <h2 class="section-title">Traditional Games. <span>Real Fun.</span></h2>
+    <p class="section-lead">Every session is 3 hours of non-stop play — structured to keep every child energised, included, and absolutely delighted.</p>
+
+    <div class="session-flow fade-in">
+      <div class="flow-step">
+        <div class="icon">🏃</div>
+        <div class="label">1.5 hrs Play</div>
+        <div class="sub">Age-split teams</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="icon">🍱</div>
+        <div class="label">Snack Break</div>
+        <div class="sub">Homemade treats</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="icon">🎮</div>
+        <div class="label">1.5 hrs Play</div>
+        <div class="sub">Asset rotation</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="icon">🎈</div>
+        <div class="label">Grand Finale</div>
+        <div class="sub">Balloon Burst!</div>
+      </div>
+    </div>
+
+    <div class="games-split fade-in">
+      <div class="age-card under6">
+        <h4>🐣 Under 6 Years</h4>
+        <div class="games-tags">
+          <span class="game-tag">Ball Throw</span>
+          <span class="game-tag">Colour Colour</span>
+          <span class="game-tag">Maa Thaatha Vutharam</span>
+          <span class="game-tag">Pick the Pencil</span>
+          <span class="game-tag">Simple Relay</span>
+          <span class="game-tag">Blind Fold</span>
+        </div>
+      </div>
+      <div class="age-card over6">
+        <h4>🏆 6 & Above</h4>
+        <div class="games-tags">
+          <span class="game-tag">7 Stones</span>
+          <span class="game-tag">Ice Water</span>
+          <span class="game-tag">London London Stop</span>
+          <span class="game-tag">Dodge Ball</span>
+          <span class="game-tag">Mudhra Ball</span>
+          <span class="game-tag">Every Every Gummadi Pandu</span>
+          <span class="game-tag">Balloon Burst</span>
+          <span class="game-tag">Kings Game</span>
+          <span class="game-tag">Mafia</span>
+          <span class="game-tag">Ramudu Sita</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="photo-gallery fade-in">
+      <div class="gallery-img"><img src="game1.jpg" alt="Kids playing" onerror="this.style.display='none'" /></div>
+      <div class="gallery-img"><img src="game2.jpg" alt="Kids playing" onerror="this.style.display='none'" /></div>
+      <div class="gallery-img"><img src="game3.jpg" alt="Kids playing" onerror="this.style.display='none'" /></div>
+      <div class="gallery-img"><img src="game4.jpg" alt="Kids playing" onerror="this.style.display='none'" /></div>
+    </div>
+
+    <div class="pricing-bar fade-in">
+      <div>
+        <div class="price-big">₹450 <span style="font-size:1rem;color:rgba(255,255,255,0.6);font-weight:400;">per child</span></div>
+        <div class="price-sub">Weekend afternoon sessions · 3PM – 6PM</div>
+      </div>
+      <a href="#contact" class="btn-primary">Book Your Community →</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section id="testimonial">
+  <div class="section-inner">
+    <p class="testimonial-quote">
+      My kids have never had so much fun without a screen. They came home exhausted, happy, and asking when the next session is. This is exactly what our community needed.
+    </p>
+    <div class="testimonial-author">
+      <strong>Parent, My Home Tarkshya</strong>
+      My Home Tarkshya, Kokapet · November 2025
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="kolam-bg">
+  <div class="section-inner">
+    <div class="section-tag">📞 Book a Session</div>
+    <h2 class="section-title">Bring Aatashala to <span>Your Community</span></h2>
+    <p class="section-lead">Fill the form and we'll call you within 24 hours to plan your session.</p>
+
+    <div class="contact-layout fade-in">
+      <div class="contact-info">
+        <h3>Get in Touch</h3>
+        <div class="contact-detail"><span>📞</span><span><a href="tel:+919063744404">+91 90637 44404</a></span></div>
+        <div class="contact-detail"><span>📧</span><span><a href="/cdn-cgi/l/email-protection#84e5e5f0e5f7ece5e8e5b5c4e3e9e5ede8aae7ebe9"><span class="__cf_email__" data-cfemail="5332322732203b323f326213343e323a3f7d303c3e">[email&#160;protected]</span></a></span></div>
+        <div class="contact-detail"><span>📍</span><span>Hyderabad, Telangana</span></div>
+        <div class="contact-serving">
+          <p>🏘️ Currently Serving</p>
+          <p><strong>Hyderabad, Telangana</strong></p>
+          <p style="font-size:0.8rem;margin-top:0.3rem;color:#1A8C6E;">Weekend sessions · ₹450 per child</p>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Name <span>*</span></label>
+              <input type="text" name="name" placeholder="Your full name" required />
+            </div>
+            <div class="form-group">
+              <label>Phone <span>*</span></label>
+              <input type="tel" name="phone" placeholder="+91 98765 43210" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Gender</label>
+              <div class="select-wrap">
+                <select name="gender">
+                  <option value="">Select</option>
+                  <option>Male</option><option>Female</option><option>Others</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>No. of Kids</label>
+              <input type="number" name="kids" placeholder="e.g. 60" min="1" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Community / Apartment <span>*</span></label>
+            <input type="text" name="community" placeholder="e.g. My Home Tarkshya, Kokapet" required />
+          </div>
+          <button type="submit" class="btn-submit" id="submitBtn">🎯 Send My Request</button>
+          <p class="form-note">We'll call you back within 24 hours.<br/>
+          <em>Activate form: replace <code>YOUR_FORM_ID</code> with your <a href="https://formspree.io" target="_blank" style="color:var(--red)">Formspree</a> ID.</em></p>
+        </form>
+        <div class="form-success" id="formSuccess">
+          <div class="check">🎉</div>
+          <h3>We've got your request!</h3>
+          <p>Our team will call you within 24 hours. Get ready for some nostalgic joy!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPLORE MORE -->
+<section id="explore">
+  <div class="section-inner">
+    <h2>We Do More Than Games</h2>
+    <p class="sub">Explore our other offerings — each a separate world of its own</p>
+    <div class="explore-cards fade-in">
+
+      <a href="food.html" class="explore-card food">
+        <div class="explore-card-inner">
+          <div class="explore-icon">🍱</div>
+          <div class="explore-title">Organic Food</div>
+          <div class="explore-desc">Handcrafted traditional Telugu snacks by our grandmothers — Sunnundalu, Chekkalu, Murukulu, Avakaya and more. Order for delivery.</div>
+          <div class="explore-arrow">Order Now →</div>
+        </div>
+      </a>
+
+      <a href="events.html" class="explore-card events">
+        <div class="explore-card-inner">
+          <div class="explore-icon">🎊</div>
+          <div class="explore-title">Celebrations & Decor</div>
+          <div class="explore-desc">Birthdays, festivals, community events — themed balloon decor, custom cakes, party games, photography and full event planning.</div>
+          <div class="explore-arrow">Plan an Event →</div>
+        </div>
+      </a>
+
+      <a href="corporate.html" class="explore-card corporate">
+        <div class="explore-card-inner">
+          <div class="explore-icon">🏢</div>
+          <div class="explore-title">Corporate Events</div>
+          <div class="explore-desc">Team building through traditional games, cultural theme events, personality workshops, and authentic food catering for your team.</div>
+          <div class="explore-arrow">Plan Team Day →</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">AatashAla</div>
+        <div class="footer-tagline">..... discover the nostalgic joy .....</div>
+      </div>
+      <div class="footer-links">
+        <h4>Community Games</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#games">Games & Sessions</a></li>
+          <li><a href="#contact">Book a Session</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>More from Us</h4>
+        <ul>
+          <li><a href="food.html">Organic Food</a></li>
+          <li><a href="events.html">Celebrations & Decor</a></li>
+          <li><a href="corporate.html">Corporate Events</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+919063744404">+91 90637 44404</a></li>
+          <li><a href="/cdn-cgi/l/email-protection#f998988d988a91989598c8b99e94989095d79a9694"><span class="__cf_email__" data-cfemail="b8d9d9ccd9cbd0d9d4d989f8dfd5d9d1d496dbd7d5">[email&#160;protected]</span></a></li>
+          <li><a href="#contact">Book Now</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Aatashala Private Limited. All rights reserved. · Hyderabad, Telangana</p>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/919063744404?text=Hi%20Aatashala!%20I%20want%20to%20book%20a%20community%20session." class="wa-float" target="_blank">💬</a>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  function toggleMenu() {
+    document.getElementById('hamburger').classList.toggle('open');
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('hamburger').classList.remove('open');
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+
+  // Hero slideshow
+  (function() {
+    const slides = document.querySelectorAll('.hero-slide');
+    let i = 0;
+    setInterval(() => {
+      slides[i].classList.remove('active');
+      i = (i + 1) % slides.length;
+      slides[i].classList.add('active');
+    }, 4000);
+  })();
+
+  // Scroll fade-in
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }});
+  }, {threshold:0.1});
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+  // Counter
+  function animCount(el) {
+    const t = parseInt(el.dataset.count), step = t/90;
+    let n = 0;
+    const id = setInterval(() => {
+      n = Math.min(n+step, t);
+      el.textContent = Math.floor(n)+'+';
+      if(n>=t) clearInterval(id);
+    },16);
+  }
+  const cobs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ animCount(e.target); cobs.unobserve(e.target); }});
+  },{threshold:0.5});
+  document.querySelectorAll('[data-count]').forEach(el => cobs.observe(el));
+
+  // Form
+  const form = document.getElementById('contactForm');
+  const btn = document.getElementById('submitBtn');
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    btn.disabled = true; btn.textContent = 'Sending...';
+    if(form.action.includes('YOUR_FORM_ID')) {
+      setTimeout(() => { form.style.display='none'; document.getElementById('formSuccess').style.display='block'; }, 700);
+      return;
+    }
+    try {
+      const res = await fetch(form.action, {method:'POST', body:new FormData(form), headers:{Accept:'application/json'
