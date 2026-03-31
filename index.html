@@ -128,6 +128,7 @@
     .hero-content {
       position:relative; z-index:2; text-align:center; padding:2rem;
       animation:heroFadeUp 1s ease 0.3s both;
+      width: 100%; max-width: 900px; margin: 0 auto;
     }
     @keyframes heroFadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
     .hero-eyebrow {
@@ -141,14 +142,15 @@
 
     /* BIG LOGO in hero */
     .hero-logo {
-      margin: 0 auto 1.5rem;
-      display: inline-block;
+      width: 100%; text-align: center;
+      margin-bottom: 1.5rem;
+      display: block;
     }
     .hero-logo-letters {
       font-family: 'Baloo 2', sans-serif; font-weight: 900;
       font-size: clamp(3.5rem, 9vw, 7rem);
       display: flex; align-items: flex-end; justify-content: center;
-      gap: 0; line-height: 1;
+      gap: 0; line-height: 1; width: 100%;
       filter: drop-shadow(0 4px 20px rgba(0,0,0,0.4));
     }
     .hl-r { color: #FF6B6B; }
@@ -244,6 +246,7 @@
     }
     .founder-card:hover { transform:translateY(-4px); box-shadow:0 10px 25px rgba(45,26,14,0.14); border-color:rgba(200,50,26,0.3); }
     .founder-photo { width:100%; height:190px; object-fit:cover; object-position:top; display:block; background:#f0d0c8; }
+    .founder-photo.vishal-photo { object-position: left center; }
     .founder-photo-placeholder { width:100%; height:190px; background:linear-gradient(135deg,#E5F5F0,#c8e8e0); display:flex; align-items:center; justify-content:center; font-size:3.5rem; }
     .founder-info { padding:1rem; }
     .founder-name { font-family:'Baloo 2',sans-serif; font-weight:800; font-size:1rem; color:var(--dark); margin-bottom:0.2rem; }
@@ -557,7 +560,7 @@
             </div>
           </div>
           <div class="founder-card">
-            <img class="founder-photo" src="founder-vishal.jpg" alt="Vishal"
+            <img class="founder-photo vishal-photo" src="founder-vishal.jpg" alt="Vishal"
               onerror="this.outerHTML='<div class=\'founder-photo-placeholder\'>🎬</div>'" />
             <div class="founder-info">
               <div class="founder-name">Vishal</div>
@@ -674,7 +677,7 @@
       <div class="contact-info">
         <h3>Get in Touch</h3>
         <div class="contact-detail"><span>📞</span><span><a href="tel:+919063744404">+91 90637 44404</a></span></div>
-        <div class="contact-detail"><span>📧</span><span><a href="mailto:aatashala1@gmail.com">aatashala1@gmail.com</a></span></div>
+        <div class="contact-detail"><span>📧</span><span><a href="/cdn-cgi/l/email-protection#84e5e5f0e5f7ece5e8e5b5c4e3e9e5ede8aae7ebe9"><span class="__cf_email__" data-cfemail="5332322732203b323f326213343e323a3f7d303c3e">[email&#160;protected]</span></a></span></div>
         <div class="contact-detail"><span>📍</span><span>Hyderabad, Telangana</span></div>
         <div class="contact-serving">
           <p>🏘️ Currently Serving</p>
@@ -715,7 +718,7 @@
             <input type="text" name="community" placeholder="e.g. My Home Tarkshya, Kokapet" required />
           </div>
           <button type="submit" class="btn-submit" id="submitBtn">🎯 Send My Request</button>
-          <p class="form-note">We'll call you back within 24 hours. 🙏<br/>
+          <p class="form-note">We'll call you back within 24 hours.<br/>
           <em>Activate form: replace <code>YOUR_FORM_ID</code> with your <a href="https://formspree.io" target="_blank" style="color:var(--red)">Formspree</a> ID.</em></p>
         </form>
         <div class="form-success" id="formSuccess">
@@ -794,7 +797,7 @@
         <h4>Contact</h4>
         <ul>
           <li><a href="tel:+919063744404">+91 90637 44404</a></li>
-          <li><a href="mailto:aatashala1@gmail.com">aatashala1@gmail.com</a></li>
+          <li><a href="/cdn-cgi/l/email-protection#f998988d988a91989598c8b99e94989095d79a9694"><span class="__cf_email__" data-cfemail="b8d9d9ccd9cbd0d9d4d989f8dfd5d9d1d496dbd7d5">[email&#160;protected]</span></a></li>
           <li><a href="#contact">Book Now</a></li>
         </ul>
       </div>
@@ -807,7 +810,7 @@
 
 <a href="https://wa.me/919063744404?text=Hi%20Aatashala!%20I%20want%20to%20book%20a%20community%20session." class="wa-float" target="_blank">💬</a>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   function toggleMenu() {
     document.getElementById('hamburger').classList.toggle('open');
     document.getElementById('mobileMenu').classList.toggle('open');
@@ -860,11 +863,4 @@
       return;
     }
     try {
-      const res = await fetch(form.action, {method:'POST', body:new FormData(form), headers:{Accept:'application/json'}});
-      if(res.ok) { form.style.display='none'; document.getElementById('formSuccess').style.display='block'; }
-      else { btn.disabled=false; btn.textContent='🎯 Send My Request'; alert('Error. Call +91 90637 44404'); }
-    } catch { btn.disabled=false; btn.textContent='🎯 Send My Request'; alert('Network error. Call +91 90637 44404'); }
-  });
-</script>
-</body>
-</html>
+      const res = await fetch(form.action, {method:'POST', body:new FormData(form), headers:{Accept:'application/json'
