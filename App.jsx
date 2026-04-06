@@ -404,7 +404,7 @@ function FounderCard({ name, role, bio, photo, emoji, delay }) {
 function About() {
   const founders = [
     {
-      name: 'Ravi Teja', // ← TODO: Replace with your actual name
+      name: 'Raja Polavarapu', // ← TODO: Replace with your actual name
       role: 'Founder & Chief Experience Officer',
       photo: '/founder-you.jpg',
       bio: 'The mind behind Aatashala — designs every session, drives the vision, and makes sure every child goes home with a story.',
